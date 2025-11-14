@@ -26,7 +26,7 @@ def input_values():
         
         if height_unit_choice == 4:
             height_feet = int(input("Enter height - feet: "))
-            height_inches = int(input("Enter height - inches: "))
+            height_inches = float(input("Enter height - inches: "))
             if (height_feet < 0 or height_inches < 0) or (height_feet == 0 and height_inches == 0) and height_inches < 12:
                 print("Height values must be non-negative.")
                 return None
@@ -48,154 +48,112 @@ def input_values():
 def lb_to_kg(pounds):
     """
     Convert pounds to kilograms.
-    Parameters:
-    pounds: Weight in pounds.
-
-    Returns:
-    Weight in kilograms
     """
     kg = pounds * 0.45359237
-    return round(kg, 2)
+    return kg
 
 
 
 def inches_to_meters(inches):
     """
     Convert inches to meters.
-    Parameters:
-    inches: Height in inches.
-
-    Returns:
-    Height in meters
     """
     meters = inches * 0.0254
-    return round(meters, 4)
+    return meters
 
 
 
 def feet_inches_to_meters(feet, inches):
     """
     Convert feet and inches to meters.
-    Parameters:
-    feet: Height in feet.
-    inches: Additional height in inches.
-
-    Returns:
-    Height in meters
     """
-
     total_inches = (feet * 12) + inches
     meters = total_inches * 0.0254
-    return round(meters, 4)
+    return meters
 
 
 
 def cms_to_meters(cms):
     """
     Convert centimeters to meters.
-    Parameters:
-    cms: Height in centimeters.
-
-    Returns:
-    Height in meters
     """
 
     meters = cms / 100
-    return round(meters, 4)
+    return meters
 
 
 
-def calculate_bmi(weight, height):
+def calculate_bmi(weight_kg: float, height_m: float) -> float:
     """
-    Calculate Body Mass Index (BMI) given weight and height.
-
-    Parameters:
-    weight: Weight in kilograms.
-    height: Height in meters.
-
-    Returns:
-    BMI value rounded to two decimal places.
+    Calculate BMI and return a float.
+    Raises ValueError if height <= 0 or weight <= 0.
     """
-    if height == 0:
-        return "Height cannot be zero."
+    if height_m <= 0:
+        raise ValueError("Height must be positive and non-zero.")
+    if weight_kg <= 0:
+        raise ValueError("Weight must be positive and non-zero.")
+    return weight_kg / (height_m ** 2)
 
-    bmi = weight / (height ** 2)
-    return round(bmi, 2)
 
 
-
-def bmi_category(bmi):
+def bmi_category(bmi: float) -> tuple[str, str]:
     """
-    Determine BMI category based on BMI value.
-
-    Parameters:
-    bmi: The BMI value.
-
-    Returns:
-    A string representing the BMI category.
+    Return (category, description).
+    Uses standard WHO ranges.
     """
+    # thresholds: (upper_bound, category, description)
+    # upper_bound is exclusive except the last one.
+    thresholds = [
+        (18.5, "Underweight", "Below healthy range; consider nutritional guidance."),
+        (25.0, "Normal weight", "Healthy range"),
+        (30.0, "Overweight", "Above healthy range; lifestyle adjustments may help."),
+        (35.0, "Obesity class I", "Moderately high; medical advice is recommended."),
+        (40.0, "Obesity class II", "High; increased health risks."),
+        (float("inf"), "Obesity class III", "Very high; medical guidance is important.")
+    ]
+    for boundary, category, description in thresholds:
+        if bmi < boundary:
+            return category, description
+    # fallback (shouldn't happen)
+    return "Unknown", "No description available."
 
-    if bmi < 18.5:
-        return "Underweight","Below healthy range; consider nutritional guidance."
-    elif 18.5 <= bmi < 25:
-        return "Normal weight","Healthy range"
-    elif 25 <= bmi < 30:
-        return "Overweight","Above healthy range; lifestyle adjustments may help."
-    elif 30 <= bmi < 35:
-        return "Obesity class I","Moderately high; medical advice is recommended."
-    elif 35 <= bmi < 40:
-        return "Obesity class II","High; increased health risks."
-    else:
-        return "Obesity class III", "Very high; medical guidance is important."
     
-
 
 def bmi_report(weight, height, weight_unit='kg', height_unit='m'):
-    """
-    Calculate BMI with automatic unit conversion.
-    
-    Parameters:
-    weight: Weight value
-    height: Height value (single value for m, cm, inches) or tuple (feet, inches)
-    weight_unit: 'kg' or 'lb'
-    height_unit: 'm', 'cm', 'in', or 'ft_in'
-    
-    Returns:
-    Tuple of (BMI value, category, description)
-    """
-    # Convert weight to kg
+    # Convert weight
     if weight_unit == 'lb':
         weight_kg = lb_to_kg(weight)
     elif weight_unit == 'kg':
-        weight_kg = weight
+        weight_kg = float(weight)
     else:
         return "Unsupported weight unit."
 
-    # Convert height to meters
+    # Convert height
     if height_unit == 'm':
-        height_m = height
+        height_m = float(height)
     elif height_unit == 'cm':
-        height_m = cms_to_meters(height)
+        height_m = cms_to_meters(float(height))
     elif height_unit == 'in':
-        height_m = inches_to_meters(height)
+        height_m = inches_to_meters(float(height))
     elif height_unit == 'ft_in':
         if isinstance(height, tuple) and len(height) == 2:
             feet, inches = height
-            height_m = feet_inches_to_meters(feet, inches)
+            height_m = feet_inches_to_meters(float(feet), float(inches))
         else:
             return "Height must be a tuple (feet, inches) for 'ft_in' unit."
     else:
         return "Unsupported height unit."
 
-    # Calculate BMI
-    bmi_value = calculate_bmi(weight_kg, height_m)
-    if isinstance(bmi_value, str):
-        return bmi_value  # Return error message if any
+    try:
+        bmi_value = calculate_bmi(weight_kg, height_m)
+    except ValueError as e:
+        return str(e)
 
-    # Determine BMI category
-    category, description = bmi_category(bmi_value)
+    # round for display only
+    bmi_value_rounded = round(bmi_value, 2)
+    category, description = bmi_category(bmi_value_rounded)
 
-    return bmi_value, category, description
+    return bmi_value_rounded, category, description
 
 
 
