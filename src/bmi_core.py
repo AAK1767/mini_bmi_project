@@ -27,8 +27,14 @@ def input_values():
         if height_unit_choice == 4:
             height_feet = int(input("Enter height - feet: "))
             height_inches = float(input("Enter height - inches: "))
-            if (height_feet < 0 or height_inches < 0) or (height_feet == 0 and height_inches == 0) and height_inches < 12:
+            if height_feet < 0 or height_inches < 0:
                 print("Height values must be non-negative.")
+                return None
+            if height_inches >= 12:
+                print("Inches must be less than 12. For 12+ inches, increase the feet value.")
+                return None
+            if height_feet == 0 and height_inches == 0:
+                print("Height cannot be zero.")
                 return None
         else:
             height = float(input(f"Enter height in {height_units[height_unit_choice]}: "))
@@ -151,7 +157,7 @@ def bmi_report(weight, height, weight_unit='kg', height_unit='m'):
 
     # round for display only
     bmi_value_rounded = round(bmi_value, 2)
-    category, description = bmi_category(bmi_value_rounded)
+    category, description = bmi_category(bmi_value)
 
     return bmi_value_rounded, category, description
 
