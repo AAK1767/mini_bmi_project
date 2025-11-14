@@ -27,7 +27,7 @@ def input_values():
         if height_unit_choice == 4:
             height_feet = int(input("Enter height - feet: "))
             height_inches = int(input("Enter height - inches: "))
-            if (height_feet < 0 or height_inches < 0) or (height_feet == 0 and height_inches == 0):
+            if (height_feet < 0 or height_inches < 0) or (height_feet == 0 and height_inches == 0) and height_inches < 12:
                 print("Height values must be non-negative.")
                 return None
         else:
