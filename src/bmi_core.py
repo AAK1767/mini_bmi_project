@@ -103,6 +103,8 @@ def cms_to_meters(cms):
     meters = cms / 100
     return round(meters, 4)
 
+
+
 def calculate_bmi(weight, height):
     """
     Calculate Body Mass Index (BMI) given weight and height.
@@ -139,9 +141,9 @@ def bmi_category(bmi):
         return "Normal weight","Healthy range"
     elif 25 <= bmi < 30:
         return "Overweight","Above healthy range; lifestyle adjustments may help."
-    elif bmi<=35:
+    elif 30 <= bmi < 35:
         return "Obesity class I","Moderately high; medical advice is recommended."
-    elif bmi<=40:
+    elif 35 <= bmi < 40:
         return "Obesity class II","High; increased health risks."
     else:
         return "Obesity class III", "Very high; medical guidance is important."
@@ -222,6 +224,8 @@ def main():
         print(f"Description: {description}")
     else:
         print(f"\nError: {bmi_result}")
+
+
 
 if __name__ == "__main__":
     main()
