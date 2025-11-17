@@ -1,0 +1,28 @@
+import json
+import os
+from datetime import datetime
+
+PROFILE_FILE = "user_profiles.json"
+
+def load_profiles():
+    """Load all saved user profiles."""
+    if not os.path.exists(PROFILE_FILE):
+        return []
+    with open(PROFILE_FILE, "r") as f:
+        return json.load(f)
+
+def save_profile(profile):
+    """
+    Save a single user profile to the JSON file.
+    profile should be a dict with any fields you decide.
+    """
+    profiles = load_profiles()
+    profile["saved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    profiles.append(profile)
+
+    with open(PROFILE_FILE, "w") as f:
+        json.dump(profiles, f, indent=4)
+
+def get_profiles():
+    """Return all profiles (same as load_profiles for convenience)."""
+    return load_profiles()
