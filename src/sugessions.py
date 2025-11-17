@@ -34,7 +34,7 @@ def health_facts_of_the_day():
 if __name__ == "__main__":
     print(health_facts_of_the_day())
 
-# suggestions.py
+
 
 def health_facts(bmi: float, category: str) -> list[str]:
     """Return short, evidence-based health facts related to the BMI category."""
@@ -65,6 +65,7 @@ def health_facts(bmi: float, category: str) -> list[str]:
         ]
     }
     return facts.get(category, [])
+
 
 
 def exercise_plan(category: str) -> list[str]:
@@ -98,6 +99,7 @@ def exercise_plan(category: str) -> list[str]:
     return plans.get(category, [])
 
 
+
 def diet_suggestions(category: str) -> list[str]:
     """Simple dietary guidance, non-medical."""
     diets = {
@@ -129,6 +131,7 @@ def diet_suggestions(category: str) -> list[str]:
     return diets.get(category, [])
 
 
+
 def warnings(category: str) -> list[str]:
     """Optional warnings for risky categories."""
     danger_zones = {
@@ -144,6 +147,7 @@ def warnings(category: str) -> list[str]:
         ]
     }
     return danger_zones.get(category, [])
+
 
 
 def generate_suggestions(bmi: float, category: str) -> dict:
