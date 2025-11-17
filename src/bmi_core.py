@@ -1,13 +1,14 @@
 def input_values():
     """
-    Prompt user for weight and height inputs.
+    Prompt user for weight, height, age, and sex.
     Returns:
-    weight: Weight in pounds.
-    height_feet: Height in feet.
-    height_inches: Additional height in inches.
+        weight, weight_unit_choice, height (value or (feet, inches)), height_unit_choice, age, sex
     """
     try:
-        weight_units={1: 'kg', 2: 'lb'}
+        # -------------------------
+        # Weight Input
+        # -------------------------
+        weight_units = {1: 'kg', 2: 'lb'}
         weight_unit_choice = int(input("Choose weight unit (1 for kg, 2 for lb): "))
 
         if weight_unit_choice not in [1, 2]:
@@ -16,38 +17,66 @@ def input_values():
 
         weight = float(input(f"Enter weight in {weight_units[weight_unit_choice]}: "))
         if weight <= 0:
-            print("Weight must be a positive number.")
+            print("Weight must be positive.")
             return None
-        height_units={1: 'm', 2: 'cm', 3: 'in', 4: 'ft/in'}
-        height_unit_choice = int(input("Choose height unit (1 for m, 2 for cm, 3 for in, 4 for ft_in): "))
+
+        # -------------------------
+        # Height Input
+        # -------------------------
+        height_units = {1: 'm', 2: 'cm', 3: 'in', 4: 'ft/in'}
+        height_unit_choice = int(input("Choose height unit (1 for m, 2 for cm, 3 for in, 4 for ft/in): "))
+
         if height_unit_choice not in [1, 2, 3, 4]:
             print("Invalid height unit choice.")
             return None
-        
+
         if height_unit_choice == 4:
-            height_feet = int(input("Enter height - feet: "))
-            height_inches = float(input("Enter height - inches: "))
-            if height_feet < 0 or height_inches < 0:
+            feet = int(input("Enter height - feet: "))
+            inches = float(input("Enter height - inches: "))
+
+            if feet < 0 or inches < 0:
                 print("Height values must be non-negative.")
                 return None
-            if height_inches >= 12:
-                print("Inches must be less than 12. For 12+ inches, increase the feet value.")
+            if inches >= 12:
+                print("Inches must be less than 12.")
                 return None
-            if height_feet == 0 and height_inches == 0:
+            if feet == 0 and inches == 0:
                 print("Height cannot be zero.")
                 return None
+
+            height = (feet, inches)
+
         else:
             height = float(input(f"Enter height in {height_units[height_unit_choice]}: "))
             if height <= 0:
-                print("Height must be a positive number.")
+                print("Height must be positive.")
                 return None
-        if height_unit_choice != 4:
-            return weight, weight_unit_choice, height, height_unit_choice
-        else:
-            return weight, weight_unit_choice, (height_feet, height_inches), height_unit_choice
+
+        # -------------------------
+        # New: Age Input
+        # -------------------------
+        age = int(input("Enter age (years): "))
+        if age <= 0:
+            print("Age must be positive.")
+            return None
+
+        # -------------------------
+        # New: Sex Input
+        # -------------------------
+        sex = input("Enter sex ('male' or 'female'): ").strip().lower()
+        if sex not in ("male", "female"):
+            print("Sex must be 'male' or 'female'.")
+            return None
+
+        # -------------------------
+        # Return all collected values
+        # -------------------------
+        return weight, weight_unit_choice, height, height_unit_choice, age, sex
+
     except (ValueError, KeyError):
-        print("Invalid input. Please enter numeric values")
+        print("Invalid input. Please enter numeric values.")
         return None
+
     
 
 
@@ -102,6 +131,54 @@ def calculate_bmi(weight_kg: float, height_m: float) -> float:
 
 
 
+def healthy_weight_range_for_height(height_m: float, lower_bmi: float = 18.5, upper_bmi: float = 25.0):
+    """
+    Return (min_weight_kg, max_weight_kg) for healthy BMI range.
+    """
+    if height_m <= 0:
+        raise ValueError("Height must be positive.")
+    min_w = lower_bmi * (height_m ** 2)
+    max_w = upper_bmi * (height_m ** 2)
+    return round(min_w, 2), round(max_w, 2)
+
+
+
+def calculate_bmr_mifflin(weight_kg: float, height_cm: float, age: int, sex: str) -> float:
+    """
+    sex: 'male' or 'female'
+    Returns BMR in kcal/day using Mifflin-St Jeor formula, i.e required minimum calories per day to survive.
+    """
+    sex = sex.lower()
+    if sex not in ("male", "female"):
+        raise ValueError("sex must be 'male' or 'female'.")
+
+    bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age
+    bmr += 5 if sex == "male" else -161
+    return round(bmr, 2)
+
+
+
+def recommended_water_liters_per_day(weight_kg: float) -> float:
+    """
+    Simple formula: liters/day = weight_kg * 0.033
+    """
+    if weight_kg <= 0:
+        raise ValueError("Weight must be positive.")
+    return round(weight_kg * 0.033, 2)
+
+
+
+def kg_diff_to_reach_healthy(weight_kg: float, min_w: float, max_w: float):
+    """
+    Returns (kg_to_gain, kg_to_lose)
+    Values will be 0 if not needed.
+    """
+    gain = round(max(0, min_w - weight_kg), 2)
+    lose = round(max(0, weight_kg - max_w), 2)
+    return gain, lose
+
+
+
 def bmi_category(bmi: float) -> tuple[str, str]:
     """
     Return (category, description).
@@ -125,7 +202,7 @@ def bmi_category(bmi: float) -> tuple[str, str]:
 
     
 
-def bmi_report(weight, height, weight_unit='kg', height_unit='m'):
+def bmi_report(weight, height, age, sex, weight_unit='kg', height_unit='m'):
     # Convert weight
     if weight_unit == 'lb':
         weight_kg = lb_to_kg(weight)
@@ -158,8 +235,12 @@ def bmi_report(weight, height, weight_unit='kg', height_unit='m'):
     # round for display only
     bmi_value_rounded = round(bmi_value, 2)
     category, description = bmi_category(bmi_value)
+    bmr_value = calculate_bmr_mifflin(weight_kg, height_m * 100, age, sex)
+    healthy_weight_values = healthy_weight_range_for_height(height_m)
+    water_intake = recommended_water_liters_per_day(weight_kg)
+    kg_to_gain, kg_to_lose = kg_diff_to_reach_healthy(weight_kg, healthy_weight_values[0], healthy_weight_values[1])
 
-    return bmi_value_rounded, category, description
+    return bmi_value_rounded, category, description, bmr_value, healthy_weight_values, water_intake, kg_to_gain, kg_to_lose
 
 
 
@@ -172,22 +253,27 @@ def main():
         print("\nFailed to get valid input. Please try again.")
         return
     
-    weight, weight_unit_choice, height, height_unit_choice = result
+    weight, weight_unit_choice, height, height_unit_choice, age, sex = result
     
     # Map choices to unit strings
     weight_units = {1: 'kg', 2: 'lb'}
     height_units = {1: 'm', 2: 'cm', 3: 'in', 4: 'ft_in'}
     
-    bmi_result = bmi_report(weight, height, weight_units[weight_unit_choice], height_units[height_unit_choice])
-    
+    bmi_result = bmi_report(weight, height, age, sex, weight_units[weight_unit_choice], height_units[height_unit_choice])
     if isinstance(bmi_result, tuple):
-        bmi, category, description = bmi_result
+        bmi, category, description, bmr_value, healthy_weight_values, water_intake, kg_to_gain, kg_to_lose = bmi_result
         print(f"\n=== Results ===")
         print(f"BMI: {bmi}")
         print(f"Category: {category}")
         print(f"Description: {description}")
+        print(f"BMR(required minimum calories per day): {bmr_value}")
+        print(f"Healthy Weight Range (kg): {healthy_weight_values}")
+        print(f"Recommended Water Intake (liters/day): {water_intake}")
+        print(f"Kg to Gain: {kg_to_gain}")
+        print(f"Kg to Lose: {kg_to_lose}")
     else:
         print(f"\nError: {bmi_result}")
+
 
 
 
