@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Arham",
+        "age": 18,
+        "weight": 42.0,
+        "height": 73.0,
+        "bmi": 12.22,
+        "category": "Underweight",
+        "sex": "male",
+        "bmr": 1493.88,
+        "healthy_weight_range": [
+            63.6,
+            85.95
+        ],
+        "recommended_water_intake": 1.39,
+        "kg_to_gain": 21.6,
+        "kg_to_lose": 0,
+        "saved_at": "2025-11-18 19:24:06.930982"
+    }
+]

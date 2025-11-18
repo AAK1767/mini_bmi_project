@@ -17,7 +17,7 @@ def save_profile(profile):
     profile should be a dict with any fields you decide.
     """
     profiles = load_profiles()
-    profile["saved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    profile["saved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
     profiles.append(profile)
 
     with open(PROFILE_FILE, "w") as f:

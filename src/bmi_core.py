@@ -1,3 +1,6 @@
+from data_utils import save_profile
+
+
 def input_values():
     """
     Prompt user for weight, height, age, and sex.
@@ -5,6 +8,10 @@ def input_values():
         weight, weight_unit_choice, height (value or (feet, inches)), height_unit_choice, age, sex
     """
     try:
+        #-------------------------
+        #   Name Input
+        #-------------------------
+        name = input("Enter your name: ").strip()
         # -------------------------
         # Weight Input
         # -------------------------
@@ -71,7 +78,7 @@ def input_values():
         # -------------------------
         # Return all collected values
         # -------------------------
-        return weight, weight_unit_choice, height, height_unit_choice, age, sex
+        return name, weight, weight_unit_choice, height, height_unit_choice, age, sex
 
     except (ValueError, KeyError):
         print("Invalid input. Please enter numeric values.")
@@ -253,7 +260,7 @@ def main():
         print("\nFailed to get valid input. Please try again.")
         return
     
-    weight, weight_unit_choice, height, height_unit_choice, age, sex = result
+    name, weight, weight_unit_choice, height, height_unit_choice, age, sex = result
     
     # Map choices to unit strings
     weight_units = {1: 'kg', 2: 'lb'}
@@ -271,6 +278,21 @@ def main():
         print(f"Recommended Water Intake (liters/day): {water_intake}")
         print(f"Kg to Gain: {kg_to_gain}")
         print(f"Kg to Lose: {kg_to_lose}")
+        profile = {
+        "name": name,
+        "age": age,
+        "weight": weight,
+        "height": height,
+        "bmi": bmi,
+        "category": category,
+        "sex": sex,
+        "bmr": bmr_value,
+        "healthy_weight_range": healthy_weight_values,
+        "recommended_water_intake": water_intake,
+        "kg_to_gain": kg_to_gain,
+        "kg_to_lose": kg_to_lose
+        }
+        save_profile(profile)   
     else:
         print(f"\nError: {bmi_result}")
 
