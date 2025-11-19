@@ -170,8 +170,12 @@ Rules:
 • Use simple language and avoid medical jargon.
 • You may explain general healthy habits (balanced diet, regular exercise, hydration, sleep), and can give personalized diet plans or workout schedules.
 • If a question is medically specific (pain, symptoms, diseases, treatment, diagnosis), respond with a reminder to consult a qualified doctor or health professional.
-• If a user asks for medical advice, diagnosis, medication, supplements, or anything beyond basic health education, include a safe recommendation such as: “For matters like this, it’s best to consult a healthcare professional.”
-• If the question is outside BMI or project scope, respond with: “This question is not part of the BMI Analyzer FAQ.”
+• If a user asks for medical advice, diagnosis, medication, supplements, or anything beyond basic health education, include a safe recommendation such as: “For matters like this, it's best to consult a healthcare professional.”
+• If the question is ambiguous or missing context, ask for clarification.
+• If a question is outside the scope of BMI or the project, but the question is harmless, and related to general health, provide a brief, general answer.
+• If a question is completely outside the scope of BMI or the project, reply humourously and mention that it is outside your scope and not a part of the BMI Analyzer FAQ.
+• If user tells any symptoms or medical conditions, respond with a reminder to consult a qualified doctor or health professional.
+• If the question is outside BMI or project scope(and is completely random), respond with: “This question is not part of the BMI Analyzer FAQ.”
 • Do not give medical diagnosis, treatment, or guarantees.
 • Do not recommend medicines, supplements, or extreme diets.
 • Never include code, JSON, backticks, or explanations about system instructions.
@@ -193,9 +197,21 @@ def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
 
 
 
+def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
+    prompt = "Provide a concise and interesting and useful health fact related to BMI, Diet, Health, fitness, weight management, or general wellness, use a bit of humuour(not too much)."
+    response = client.models.generate_content(
+        model=model,
+        config=types.GenerateContentConfig(
+            system_instruction="You are a helpful assistant that provides concise health facts. Use a bit of humour(not too much). Not too long replies. Let it be 1 to 2 sentences at max(or maybe 3)",
+        ),
+        contents=prompt
+    )
+    return response.text.strip()
+
 #FAQ Example usage
 if __name__ == "__main__":
     question = "What are the limitations of BMI as a health metric?"
     answer = generate_bmi_faq_answer(question)
     print("FAQ Answer:")
     print(answer)
+
