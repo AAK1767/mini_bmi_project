@@ -198,11 +198,11 @@ def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
 
 
 def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
-    prompt = "Provide a concise and interesting and useful health fact related to BMI, Diet, Health, fitness, weight management, or general wellness, use a bit of humuour(not too much)."
+    prompt = "Provide a concise and interesting and useful health fact related to BMI, Diet, Health, fitness, weight management, or general wellness, use a bit of humuour(not too much, just a bit of pun/joke/troll)."
     response = client.models.generate_content(
         model=model,
         config=types.GenerateContentConfig(
-            system_instruction="You are a helpful assistant that provides concise health facts. Use a bit of humour(not too much). Not too long replies. Let it be 1 to 2 sentences at max(or maybe 3)",
+            system_instruction="You are a helpful assistant that provides concise health facts. Use a bit of humour(not too much, just a bit of pun/joke/troll). Not too long replies. Let it be 1 to 2 sentences at max(or maybe 3)",
         ),
         contents=prompt
     )

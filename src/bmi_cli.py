@@ -7,7 +7,7 @@ from data_utils import load_profiles
 from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range
 
 # Import suggestions
-from sugessions import generate_suggestions as get_static_suggestions, health_facts_of_the_day as get_static_fact
+from suggestions import generate_suggestions as get_static_suggestions, health_facts_of_the_day as get_static_fact
 # Import AI functions (added FAQ import)
 from chatbot_ai import generate_bmi_suggestions, generate_bmi_faq_answer, generate_health_fact_of_the_day
 

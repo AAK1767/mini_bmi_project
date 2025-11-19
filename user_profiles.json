@@ -82,5 +82,16 @@
         "category": "Overweight",
         "bmr": 1898.43,
         "saved_at": "2025-11-19 17:43:55.229099"
+    },
+    {
+        "name": "thanos",
+        "age": 40,
+        "sex": "male",
+        "weight": 180.0,
+        "height": 180.0,
+        "bmi": 25.2,
+        "category": "Overweight",
+        "bmr": 1746.47,
+        "saved_at": "2025-11-19 18:08:14.965930"
     }
 ]
