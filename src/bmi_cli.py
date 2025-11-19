@@ -8,7 +8,7 @@ from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range
 
 # Import suggestions
 from suggestions import generate_suggestions as get_static_suggestions, health_facts_of_the_day as get_static_fact
-# Import AI functions (added FAQ import)
+# Import AI functions
 from chatbot_ai import generate_bmi_suggestions, generate_bmi_faq_answer, generate_health_fact_of_the_day
 
 def print_separator():
@@ -272,7 +272,7 @@ def main():
             elif menu_choice == '5':
                 # BREAKS Phase 3 Loop -> Returns to Phase 2 Loop (Input)
                 # Skips Phase 1 (Main Menu)
-                print("\nRestaring Calculator...")
+                print("\nRestarting Calculator...")
                 break 
 
             elif menu_choice == '6':

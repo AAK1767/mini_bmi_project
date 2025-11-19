@@ -1,8 +1,21 @@
 from google import genai
 from google.genai import types
 import json
+import os
+from dotenv import load_dotenv
 
-client = genai.Client(api_key="AIzaSyBLWAFoSIiLESThufagVkJFnGikGkwhKTo")
+# 1. Load the .env file
+load_dotenv()
+
+# 2. Get the key from the environment
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+# 3. check if key exists (Optional safety)
+if not API_KEY:
+    raise ValueError("API Key not found. Please set GEMINI_API_KEY in your .env file.")
+
+# 4. Initialize client
+client = genai.Client(api_key=API_KEY)
 
 SYSTEM_INSTRUCTION = """
 **1. Purpose & Role**
@@ -77,7 +90,7 @@ Be direct. Be practical.
 Use bullet-like, compact suggestions.
 Do not add emojis or jokes.
 Aim for reliability and clarity.
-"""  # paste your long system_instruction string here (the one you already wrote)
+"""
 
 
 
@@ -121,8 +134,7 @@ def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="
         try:
             result = json.loads(cleaned)
         except Exception as e:
-            # return helpful debugging info
-            raise ValueError(f"Failed to parse model output as JSON.\nModel output:\n{text}\n\nError: {e}")
+            return {"error": f"AI processing failed: {str(e)}"}
 
     # Basic validation of required structure
     if "error" in result:

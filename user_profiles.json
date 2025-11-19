@@ -93,5 +93,19 @@
         "category": "Overweight",
         "bmr": 1746.47,
         "saved_at": "2025-11-19 18:08:14.965930"
+    },
+    {
+        "name": "A",
+        "age": 19,
+        "sex": "Male",
+        "weight": 42.0,
+        "height": [
+            6.0,
+            1.0
+        ],
+        "bmi": 12.22,
+        "category": "Underweight",
+        "bmr": 1488.88,
+        "saved_at": "2025-11-19 19:13:45.853916"
     }
 ]

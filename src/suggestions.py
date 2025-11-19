@@ -15,7 +15,7 @@ def health_facts_of_the_day():
         "Plan meals and prep healthy snacks to avoid processed food choices.",
         "Read nutrition labels to make informed food choices.",
         "Practice mindful eating: slow down and savor your food.",
-        "Stay consistent with regular meal times to help regulate appetite."
+        "Stay consistent with regular meal times to help regulate appetite.",
         "Favor whole-food snacks like nuts, seeds, and fresh fruit over packaged bars.",
         "Add legumes (lentils, chickpeas, black beans) to meals to boost protein and fiber.",
         "Try meatless meals a few times a week to diversify nutrients and reduce saturated fat.",
