@@ -1,6 +1,7 @@
 import wx
 import wx.adv
 import sys
+import os
 import threading
 
 # Import functions from existing modules
@@ -21,6 +22,70 @@ from chatbot_ai import (
 )
 
 
+class BackgroundPanel(wx.Panel):
+    """Panel with a background image."""
+    
+    def __init__(self, parent, image_path=None):
+        super().__init__(parent)
+        self.background_image = None
+        self.scaled_image = None
+        
+        # Try to load background image
+        if image_path and os.path.exists(image_path):
+            try:
+                self.background_image = wx.Image(image_path, wx.BITMAP_TYPE_ANY)
+            except Exception:
+                pass
+        
+        # Set background style for transparency support
+        self.SetBackgroundStyle(wx.BG_STYLE_PAINT)
+        
+        # Bind paint and resize events
+        self.Bind(wx.EVT_PAINT, self.on_paint)
+        self.Bind(wx.EVT_SIZE, self.on_size)
+        self.Bind(wx.EVT_ERASE_BACKGROUND, self.on_erase)
+    
+    def on_erase(self, event):
+        """Prevent flickering."""
+        pass
+    
+    def on_size(self, event):
+        """Handle resize - rescale image."""
+        self.scaled_image = None  # Reset scaled image
+        self.Refresh()
+        event.Skip()
+    
+    def on_paint(self, event):
+        """Draw background image."""
+        dc = wx.PaintDC(self)
+        size = self.GetSize()
+        
+        if self.background_image:
+            # Scale image to fit panel
+            if self.scaled_image is None or self.scaled_image.GetSize() != size:
+                img = self.background_image.Scale(size.width, size.height, wx.IMAGE_QUALITY_HIGH)
+                self.scaled_image = wx.Bitmap(img)
+            
+            dc.DrawBitmap(self.scaled_image, 0, 0)
+        else:
+            # Default gradient background if no image
+            dc.GradientFillLinear(
+                wx.Rect(0, 0, size.width, size.height),
+                wx.Colour(230, 240, 250),  # Light blue
+                wx.Colour(200, 220, 240),  # Slightly darker blue
+                wx.SOUTH
+            )
+
+
+class TransparentPanel(wx.Panel):
+    """A panel with transparent background to show parent's background."""
+    
+    def __init__(self, parent, main_frame=None):
+        super().__init__(parent)
+        self.main_frame = main_frame
+        self.SetBackgroundColour(wx.Colour(255, 255, 255, 220))  # Semi-transparent white
+
+
 class BMICalculatorApp(wx.Frame):
     """Main application window for BMI Health Analyzer."""
     
@@ -31,16 +96,41 @@ class BMICalculatorApp(wx.Frame):
         self.current_result = None
         self.current_input = None
         
-        # Create main panel and notebook for tabs
-        self.panel = wx.Panel(self)
-        self.notebook = wx.Notebook(self.panel)
+        # Get background image path from assets folder
+        src_dir = os.path.dirname(os.path.abspath(__file__))
+        project_dir = os.path.dirname(src_dir)
+        assets_dir = os.path.join(project_dir, "assets")
         
-        # Create tabs
+        # Try common image names - adjust filename as needed
+        background_path = None
+        for img_name in ["background.png", "background.jpg", "bg.png", "bg.jpg", "wallpaper.png", "wallpaper.jpg"]:
+            potential_path = os.path.join(assets_dir, img_name)
+            if os.path.exists(potential_path):
+                background_path = potential_path
+                break
+        
+        # Create main panel with background
+        self.panel = BackgroundPanel(self, background_path)
+        self.panel.SetBackgroundColour(wx.Colour(230, 240, 250))
+        
+        # Create notebook for tabs
+        self.notebook = wx.Notebook(self.panel)
+        self.notebook.SetBackgroundColour(wx.Colour(245, 248, 252))
+        
+        # Create tabs with semi-transparent backgrounds
         self.calculator_tab = CalculatorTab(self.notebook, self)
         self.suggestions_tab = SuggestionsTab(self.notebook, self)
         self.faq_tab = FAQTab(self.notebook, self)
         self.history_tab = HistoryTab(self.notebook, self)
         self.graphs_tab = GraphsTab(self.notebook, self)
+        
+        # Set tab background colors for visual consistency with background
+        tab_bg_color = wx.Colour(245, 248, 252, 240)  # Light, slightly transparent
+        self.calculator_tab.SetBackgroundColour(tab_bg_color)
+        self.suggestions_tab.SetBackgroundColour(tab_bg_color)
+        self.faq_tab.SetBackgroundColour(tab_bg_color)
+        self.history_tab.SetBackgroundColour(tab_bg_color)
+        self.graphs_tab.SetBackgroundColour(tab_bg_color)
         
         # Add tabs to notebook
         self.notebook.AddPage(self.calculator_tab, "Calculator")
@@ -52,12 +142,18 @@ class BMICalculatorApp(wx.Frame):
         # Layout
         sizer = wx.BoxSizer(wx.VERTICAL)
         
-        # Health Fact of the Day at top
-        self.fact_text = wx.StaticText(self.panel, label="Loading Health Fact...")
+        # Health Fact of the Day at top with styled background
+        fact_panel = wx.Panel(self.panel)
+        fact_panel.SetBackgroundColour(wx.Colour(255, 255, 255, 200))
+        fact_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.fact_text = wx.StaticText(fact_panel, label="Loading Health Fact...")
         self.fact_text.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_NORMAL))
-        sizer.Add(self.fact_text, 0, wx.ALL | wx.EXPAND, 10)
+        self.fact_text.SetForegroundColour(wx.Colour(50, 50, 100))
+        fact_sizer.Add(self.fact_text, 1, wx.ALL | wx.EXPAND, 5)
+        fact_panel.SetSizer(fact_sizer)
         
-        sizer.Add(self.notebook, 1, wx.EXPAND | wx.ALL, 5)
+        sizer.Add(fact_panel, 0, wx.ALL | wx.EXPAND, 10)
+        sizer.Add(self.notebook, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
         self.panel.SetSizer(sizer)
         
         # Load health fact in background
