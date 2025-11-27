@@ -90,51 +90,51 @@ def exercise_plan(category: str) -> list[str]:
     """Suggest beginner-friendly exercises depending on BMI category."""
     plans = {
         "Underweight": [
-            "Light strength training to build muscle mass.",
-            "Yoga or pilates for posture and flexibility.",
-            "Resistance band exercises 3 times per week.",
-            "Progressive weight training with proper nutrition support.",
-            "Balance and stability exercises like tai chi."
+            "light strength training to build muscle mass.",
+            "yoga or pilates for posture and flexibility.",
+            "resistance band exercises 3 times per week.",
+            "progressive weight training with proper nutrition support.",
+            "balance and stability exercises like tai chi."
         ],
         "Normal weight": [
             "30 minutes of brisk walking or jogging.",
-            "Body-weight training 3–4 times per week.",
-            "Mix of cardio and strength training for overall fitness.",
-            "Try sports activities like tennis, basketball, or swimming.",
-            "High-intensity interval training (HIIT) 2-3 times weekly.",
-            "Incorporate flexibility exercises and stretching routines."
+            "body-weight training 3-4 times per week.",
+            "mix of cardio and strength training for overall fitness.",
+            "try sports activities like tennis, basketball, or swimming.",
+            "high-intensity interval training (HIIT) 2-3 times weekly.",
+            "incorporate flexibility exercises and stretching routines."
         ],
         "Overweight": [
-            "Low-impact cardio like cycling or swimming.",
-            "Strength training with light weights to build metabolism.",
-            "Brisk walking for 30-45 minutes daily.",
-            "Water aerobics to reduce joint stress.",
-            "Elliptical training for cardiovascular fitness.",
-            "Gradual progression to include light jogging intervals."
+            "low-impact cardio like cycling or swimming.",
+            "strength training with light weights to build metabolism.",
+            "brisk walking for 30-45 minutes daily.",
+            "water aerobics to reduce joint stress.",
+            "elliptical training for cardiovascular fitness.",
+            "gradual progression to include light jogging intervals."
         ],
         "Obesity class I": [
-            "Walking 20–30 minutes daily at a comfortable pace.",
-            "Chair exercises or light resistance band workouts.",
-            "Swimming or pool exercises for full-body workout.",
-            "Stationary cycling starting with short sessions.",
-            "Gentle stretching and range-of-motion exercises.",
-            "Seated strength training to build muscle safely."
+            "walking 20-30 minutes daily at a comfortable pace.",
+            "chair exercises or light resistance band workouts.",
+            "swimming or pool exercises for full-body workout.",
+            "stationary cycling starting with short sessions.",
+            "gentle stretching and range-of-motion exercises.",
+            "seated strength training to build muscle safely."
         ],
         "Obesity class II": [
-            "Short interval walks (5–10 minutes each).",
-            "Water-based exercises to reduce joint strain.",
-            "Chair yoga and seated exercises.",
-            "Arm exercises with very light weights or resistance bands.",
-            "Breathing exercises and gentle stretching.",
-            "Gradual increase in daily movement and activity."
+            "short interval walks (5-10 minutes each).",
+            "water-based exercises to reduce joint strain.",
+            "chair yoga and seated exercises.",
+            "arm exercises with very light weights or resistance bands.",
+            "breathing exercises and gentle stretching.",
+            "gradual increase in daily movement and activity."
         ],
         "Obesity class III": [
-            "Supervised physiotherapy or guided low-impact routines.",
-            "Focus on mobility and breathing exercises.",
-            "Assisted standing and sitting exercises.",
-            "Pool therapy under professional guidance.",
-            "Gentle range-of-motion exercises to maintain flexibility.",
-            "Focus on building daily activity tolerance gradually."
+            "supervised physiotherapy or guided low-impact routines.",
+            "focus on mobility and breathing exercises.",
+            "assisted standing and sitting exercises.",
+            "pool therapy under professional guidance.",
+            "gentle range-of-motion exercises to maintain flexibility.",
+            "focus on building daily activity tolerance gradually."
         ]
     }
     return plans.get(category, [])
@@ -146,6 +146,7 @@ def diet_suggestions(category: str) -> list[str]:
     diets = {
         "Underweight": [
             "Add calorie-dense foods like nuts, peanut butter, and dairy.",
+            "Eat"
             "Increase protein intake to help muscle growth.",
             "Eat more frequent, smaller meals throughout the day.",
             "Include healthy fats from avocados, olive oil, and fatty fish.",
@@ -154,6 +155,7 @@ def diet_suggestions(category: str) -> list[str]:
         ],
         "Normal weight": [
             "Balanced meals with vegetables, fruits, grains, and lean proteins.",
+            "Perfect"
             "Keep hydrated and avoid excessive processed foods.",
             "Practice portion control to maintain current weight.",
             "Include variety in your diet for all essential nutrients.",
@@ -162,6 +164,7 @@ def diet_suggestions(category: str) -> list[str]:
         ],
         "Overweight": [
             "Reduce sugary drinks and replace with water.",
+            "Eat less"
             "Increase fiber intake using vegetables and whole grains.",
             "Control portion sizes using smaller plates.",
             "Eat more vegetables and fruits, aim for 5-7 servings daily.",
@@ -172,6 +175,7 @@ def diet_suggestions(category: str) -> list[str]:
         "Obesity class I": [
             "Portion control and reducing high-fat snacks help greatly.",
             "Add lean proteins and vegetables while reducing fried foods.",
+            "Don't eat"
             "Track daily calorie intake to increase awareness.",
             "Eliminate sugary sodas and juice drinks.",
             "Increase water intake to 8-10 glasses daily.",
@@ -181,6 +185,7 @@ def diet_suggestions(category: str) -> list[str]:
         "Obesity class II": [
             "Avoid high-calorie fast foods; choose home-cooked meals.",
             "Switch to whole grains instead of refined carbs.",
+            "No eating"
             "Work with a nutritionist for personalized meal planning.",
             "Focus on vegetables, lean proteins, and controlled portions.",
             "Eliminate late-night snacking and emotional eating.",
@@ -191,6 +196,7 @@ def diet_suggestions(category: str) -> list[str]:
             "Professional dietary planning is strongly recommended.",
             "Focus on slow, sustainable changes instead of crash diets.",
             "Work with medical team for structured weight loss program.",
+            "No eating at all"
             "Start with small achievable goals like reducing one unhealthy food.",
             "Consider medically supervised meal replacement programs.",
             "Address emotional eating with professional support.",
@@ -233,9 +239,11 @@ def warnings(category: str) -> list[str]:
     return danger_zones.get(category, [])
 
 
+
 def generate_suggestions(bmi: float, category: str) -> dict:
     """
     Combine all suggestions into one dictionary for easy use in GUI or CLI.
+    Demonstrates: list comprehension, map, and filter.
     Returns:
         {
             "health_facts": [...],
@@ -244,9 +252,34 @@ def generate_suggestions(bmi: float, category: str) -> dict:
             "warnings": [...]
         }
     """
+    raw_facts = health_facts(bmi, category)
+    raw_exercises = exercise_plan(category)
+    raw_diet = diet_suggestions(category)
+    raw_warnings = warnings(category)
+    
+    # LIST COMPREHENSION: Add bullet formatting to facts
+    formatted_facts = [f"• {fact}" for fact in raw_facts]
+    
+    # MAP: Capitalize first letter of each exercise suggestion
+    formatted_exercises = list(map(lambda x: x.strip().capitalize(), raw_exercises))
+    
+    # FILTER: Only include diet tips longer than 20 characters (more detailed tips)
+    detailed_diet = list(filter(lambda tip: len(tip) > 20, raw_diet))
+    
     return {
-        "health_facts": health_facts(bmi, category),
-        "exercise_plan": exercise_plan(category),
-        "diet": diet_suggestions(category),
-        "warnings": warnings(category)
+        "health_facts": formatted_facts,
+        "exercise_plan": formatted_exercises,
+        "diet": detailed_diet if detailed_diet else raw_diet,  # fallback if all filtered out
+        "warnings": raw_warnings
     }
+
+# test
+if __name__ == "__main__":
+    bmi = 27.5
+    category = "Overweight"
+    suggestions = generate_suggestions(bmi, category)
+    for key, value in suggestions.items():
+        print(f"{key.capitalize()}:")
+        for item in value:
+            print(f"  - {item}")
+        print()

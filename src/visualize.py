@@ -98,8 +98,10 @@ def plot_bmi_range(user_bmi: float):
 
     plt.figure(figsize=(8, 2.5))
     
-    # Healthy range band
-    plt.axhspan(0, 1, xmin=18.5/40, xmax=24.9/40, color='lightgreen', alpha=0.6)
+    # Healthy range band - convert BMI values to axis fraction (xlim is 10-40, so range is 30)
+    xmin_frac = (18.5 - 10) / (40 - 10)  # = 8.5/30
+    xmax_frac = (24.9 - 10) / (40 - 10)  # = 14.9/30
+    plt.axhspan(0, 1, xmin=xmin_frac, xmax=xmax_frac, color='lightgreen', alpha=0.6)
 
     # Vertical line for user's BMI
     plt.axvline(user_bmi, color='red', linewidth=3)
@@ -107,7 +109,7 @@ def plot_bmi_range(user_bmi: float):
     plt.xlim(10, 40)
     plt.yticks([])
     plt.xlabel("BMI Value")
-    plt.title("Your BMI Compared to Healthy Range (18.5 – 24.9)")
+    plt.title("Your BMI Compared to Healthy Range (18.5 - 24.9)")
 
     plt.text(user_bmi, 0.5, f"{user_bmi:.1f}", fontsize=12, ha='center', va='center')
 

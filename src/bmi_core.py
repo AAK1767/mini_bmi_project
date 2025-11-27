@@ -1,5 +1,17 @@
 from data_utils import save_profile
+VALID_WEIGHT_UNITS = {'kg', 'lb'}
+VALID_HEIGHT_UNITS = {'m', 'cm', 'in', 'ft_in'}
 
+def log_execution(func):
+    """Decorator that prints messages before and after function execution."""
+    def wrapper(*args, **kwargs):
+        print(f"\n[LOG] Starting calculation: {func.__name__}...")
+        print(f"[LOG] Input values: {args}")
+        result = func(*args, **kwargs)
+        print(f"[LOG] Calculation complete!")
+        print(f"[LOG] Result: {result}")
+        return result
+    return wrapper
 
 def input_values():
     """
@@ -124,7 +136,7 @@ def cms_to_meters(cms):
     return meters
 
 
-
+@log_execution
 def calculate_bmi(weight_kg: float, height_m: float) -> float:
     """
     Calculate BMI and return a float.
@@ -210,13 +222,17 @@ def bmi_category(bmi: float) -> tuple[str, str]:
     
 
 def bmi_report(weight, height, age, sex, weight_unit='kg', height_unit='m'):
+    # Validate units using sets
+    if weight_unit not in VALID_WEIGHT_UNITS:
+        return "Unsupported weight unit."
+    if height_unit not in VALID_HEIGHT_UNITS:
+        return "Unsupported height unit."
+    
     # Convert weight
     if weight_unit == 'lb':
         weight_kg = lb_to_kg(weight)
-    elif weight_unit == 'kg':
+    else:  # kg
         weight_kg = float(weight)
-    else:
-        return "Unsupported weight unit."
 
     # Convert height
     if height_unit == 'm':
