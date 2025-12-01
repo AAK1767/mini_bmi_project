@@ -4,7 +4,7 @@ import json
 # Import functions from your existing modules
 from bmi_core import input_values, bmi_report, save_profile, cms_to_meters, inches_to_meters, feet_inches_to_meters, lb_to_kg
 from data_utils import load_profiles
-from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range
+from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range, plot_bmi_distribution
 
 # Import suggestions
 from suggestions import generate_suggestions as get_static_suggestions, health_facts_of_the_day as get_static_fact
@@ -142,8 +142,6 @@ def main():
         print(f"★ {fact}")
     print("==========================================\n")
 
-    # --- PHASE 1: INITIAL MAIN MENU (Runs only once at start) ---
-    # We stay here until the user chooses to "Start Calculator"
     while True:
         print("=== MAIN MENU ===")
         print("1. Start BMI Calculator")
@@ -163,9 +161,6 @@ def main():
         else:
             print("Invalid option.")
 
-    # --- PHASE 2: CALCULATOR APP LOOP ---
-    # Once we are here, we never go back to Phase 1. 
-    # "Recalculate" simply restarts this loop.
     while True:
         # --- STEP 1: INPUT ---
         print_separator()
@@ -221,7 +216,6 @@ def main():
         print("\n(Result saved to history)")
         print_separator()
 
-        # --- PHASE 3: ACTION MENU (The 6 Options) ---
         while True:
             print(f"\n--- ACTIONS FOR {name.upper()} ---")
             print("1. Get Suggestions (Diet/Exercise)")
@@ -244,8 +238,8 @@ def main():
                 print("a. Compare with World Averages")
                 print("b. Weight vs Healthy Range")
                 print("c. BMI Position")
-                g_choice = input("Choose graph (a/b/c): ").strip().lower()
-                
+                print("d. Global BMI Distribution")
+                g_choice = input("Choose graph (a/b/c/d): ").strip().lower()
                 try:
                     if g_choice == 'a':
                         plot_bmi_comparison(bmi)
@@ -261,6 +255,8 @@ def main():
                         plot_weight_vs_ideal(w_kg, h_m)
                     elif g_choice == 'c':
                         plot_bmi_range(bmi)
+                    elif g_choice == 'd':
+                        plot_bmi_distribution()
                     else:
                         print("Invalid graph choice.")
                 except Exception as e:
@@ -270,8 +266,6 @@ def main():
                 view_history()
 
             elif menu_choice == '5':
-                # BREAKS Phase 3 Loop -> Returns to Phase 2 Loop (Input)
-                # Skips Phase 1 (Main Menu)
                 print("\nRestarting Calculator...")
                 break 
 

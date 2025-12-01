@@ -1,3 +1,5 @@
 user_profiles.json
 /src/.env
 /src/__pycache__
+/tests/__pycache__
+/.pytest_cache

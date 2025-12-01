@@ -20,13 +20,9 @@ def input_values():
         weight, weight_unit_choice, height (value or (feet, inches)), height_unit_choice, age, sex
     """
     try:
-        #-------------------------
         #   Name Input
-        #-------------------------
         name = input("Enter your name: ").strip()
-        # -------------------------
         # Weight Input
-        # -------------------------
         weight_units = {1: 'kg', 2: 'lb'}
         weight_unit_choice = int(input("Choose weight unit (1 for kg, 2 for lb): "))
 
@@ -39,9 +35,7 @@ def input_values():
             print("Weight must be positive.")
             return None
 
-        # -------------------------
         # Height Input
-        # -------------------------
         height_units = {1: 'm', 2: 'cm', 3: 'in', 4: 'ft/in'}
         height_unit_choice = int(input("Choose height unit (1 for m, 2 for cm, 3 for in, 4 for ft/in): "))
 
@@ -71,25 +65,19 @@ def input_values():
                 print("Height must be positive.")
                 return None
 
-        # -------------------------
-        # New: Age Input
-        # -------------------------
+        # Age Input
         age = int(input("Enter age (years): "))
         if age <= 0:
             print("Age must be positive.")
             return None
 
-        # -------------------------
-        # New: Sex Input
-        # -------------------------
+        # Sex Input
         sex = input("Enter sex ('male' or 'female'): ").strip().lower()
         if sex not in ("male", "female"):
             print("Sex must be 'male' or 'female'.")
             return None
 
-        # -------------------------
         # Return all collected values
-        # -------------------------
         return name, weight, weight_unit_choice, height, height_unit_choice, age, sex
 
     except (ValueError, KeyError):

@@ -65,8 +65,6 @@ mini_bmi_project/
 ├── user_profiles.json         # Saved user data (auto-generated)
 ├── assets/                    # Images and static assets
 │   └── background.png         # GUI background image (optional)
-├── sample_inputs/
-│   └── sample_data.csv        # Sample data for testing
 ├── src/
 │   ├── .env                   # Environment variables (API keys)
 │   ├── main.py                # Main entry point

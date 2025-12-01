@@ -10,7 +10,7 @@ from bmi_core import (
     inches_to_meters, feet_inches_to_meters, lb_to_kg
 )
 from data_utils import load_profiles
-from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range
+from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range, plot_bmi_distribution
 from suggestions import (
     generate_suggestions as get_static_suggestions,
     health_facts_of_the_day as get_static_fact
@@ -685,6 +685,10 @@ class GraphsTab(wx.Panel):
         self.position_btn.Bind(wx.EVT_BUTTON, self.on_bmi_position)
         btn_sizer.Add(self.position_btn, 0, wx.ALL | wx.ALIGN_CENTER, 10)
         
+        self.distribution_btn = wx.Button(self, label="BMI Distribution Chart", size=(250, 40))
+        self.distribution_btn.Bind(wx.EVT_BUTTON, self.on_bmi_distribution)
+        btn_sizer.Add(self.distribution_btn, 0, wx.ALL | wx.ALIGN_CENTER, 10)
+        
         main_sizer.Add(btn_sizer, 1, wx.ALIGN_CENTER)
         
         self.SetSizer(main_sizer)
@@ -695,6 +699,7 @@ class GraphsTab(wx.Panel):
         self.compare_btn.Enable(enabled)
         self.weight_btn.Enable(enabled)
         self.position_btn.Enable(enabled)
+        self.distribution_btn.Enable(enabled)
         if enabled:
             self.info_label.SetLabel("Click a button to view the graph.")
         else:
@@ -743,6 +748,15 @@ class GraphsTab(wx.Panel):
             bmi = self.main_frame.current_result[0]
             try:
                 plot_bmi_range(bmi)
+            except Exception as e:
+                wx.MessageBox(f"Graph error: {e}", "Error", wx.OK | wx.ICON_ERROR)
+    
+    def on_bmi_distribution(self, event):
+        """Show BMI distribution chart."""
+        if self.main_frame.current_result:
+            bmi = self.main_frame.current_result[0]
+            try:
+                plot_bmi_distribution()
             except Exception as e:
                 wx.MessageBox(f"Graph error: {e}", "Error", wx.OK | wx.ICON_ERROR)
 
