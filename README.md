@@ -119,6 +119,7 @@ mini_bmi_project/
 | matplotlib | ≥ 3.7.0 | Data visualization |
 | python-dotenv | ≥ 1.0.0 | Environment variable management |
 | google-genai | ≥ 1.0.0 | Google Gemini AI integration |
+| pytest | ≥ 9.0.0 | For testing the code |
 
 ---
 
@@ -143,14 +144,32 @@ To enable AI features, you need a Google Gemini API key:
 
 ## 📖 Usage
 
-### GUI Application
+### Running the Application
 
-Launch the graphical user interface:
+Launch the BMI Health Analyzer:
 
 ```bash
 cd src
-python bmi_gui2.py
+python main.py
 ```
+
+You will be presented with a menu to choose your preferred interface:
+
+```
+========================================
+       BMI HEALTH ANALYZER
+========================================
+
+Choose your interface:
+1. Command Line Interface (CLI)
+2. Graphical User Interface (GUI)
+3. Exit
+```
+
+**CLI Features:**
+- Interactive text-based menus
+- Health fact on startup
+- BMI calculation, suggestions, FAQ, graphs, and history
 
 **GUI Features:**
 - **Calculator Tab** - Enter your details and calculate BMI
@@ -158,28 +177,6 @@ python bmi_gui2.py
 - **AI FAQ Tab** - Chat with the AI about health topics
 - **History Tab** - View past calculations
 - **Graphs Tab** - Visualize your BMI data
-
-### CLI Application
-
-Run the command-line interface:
-
-```bash
-cd src
-python bmi_cli.py
-```
-
-**CLI Menu Options:**
-1. Start BMI Calculator
-2. General Health FAQ (AI Chat)
-3. Exit
-
-**After Calculation:**
-1. Get Suggestions (Diet/Exercise)
-2. Ask AI FAQ
-3. Show Graphs
-4. View History
-5. Recalculate (New User)
-6. Exit App
 
 ### Direct Module Usage
 
@@ -297,13 +294,6 @@ python tests/test_bmi_core.py
 
 ## 📸 Screenshots
 
-*Add screenshots of your GUI and CLI here*
-
-### GUI Calculator
-![Calculator Tab](assets/screenshot_calculator.png)
-
-### CLI Interface
-![CLI Menu](assets/screenshot_cli.png)
 
 ---
 
@@ -337,8 +327,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
+**Arham Ahmed Khan**
+- GitHub: [@aak1767](https://github.com/aak1767)
 
 ---
 
