@@ -540,7 +540,7 @@ class FAQTab(wx.Panel):
         main_sizer.Add(info, 0, wx.ALL, 5)
         
         # Example questions
-        examples = wx.StaticText(self, label="Examples: 'What is BMR?', 'Is BMI accurate for athletes?', 'How does age affect BMI?'")
+        examples = wx.StaticText(self, label="Examples: 'Is pasta healthy?', 'Health tips for BMI 36?', 'What is BMR?', 'How does age affect BMI?'")
         examples.SetFont(wx.Font(9, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_NORMAL))
         main_sizer.Add(examples, 0, wx.ALL, 5)
         
