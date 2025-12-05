@@ -9,19 +9,20 @@ A comprehensive BMI (Body Mass Index) calculator and health analysis tool with b
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-  - [GUI Application](#gui-application)
-  - [CLI Application](#cli-application)
-- [Modules Overview](#modules-overview)
-- [API Integration](#api-integration)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
-
+- [Features](#✨-features)
+- [Project Structure](#📁-project-structure)
+- [Installation](#🚀-installation)
+- [Configuration](#⚙️-configuration)
+- [Usage](#📖-usage)
+- [Modules Overview](#🧩-modules-overview)
+- [API Integration](#🤖-api-integration)
+- [Running Tests](#🧪-running-tests)
+- [Screenshots](#📸-screenshots)
+- [Development](#🛠️-development)
+- [Disclaimer](#⚠️-disclaimer)
+- [License](#📄-license)
+- [Project Team](#👤-project-team)
+- [Acknowledgments](#🙏-acknowledgments)
 ---
 
 ## ✨ Features
