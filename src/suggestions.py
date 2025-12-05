@@ -30,9 +30,6 @@ def health_facts_of_the_day():
         "Cook large batches and freeze portions to help maintain healthy choices on busy days."
     ]
     return random.choice(li)
-#test
-if __name__ == "__main__":
-    print(health_facts_of_the_day())
 
 
 
@@ -273,13 +270,23 @@ def generate_suggestions(bmi: float, category: str) -> dict:
         "warnings": raw_warnings
     }
 
-# test
+# Example usage:
 if __name__ == "__main__":
-    bmi = 27.5
-    category = "Overweight"
-    suggestions = generate_suggestions(bmi, category)
-    for key, value in suggestions.items():
-        print(f"{key.capitalize()}:")
-        for item in value:
-            print(f"  - {item}")
-        print()
+    # Health Facts of the Day
+    print(health_facts_of_the_day())
+    bmi_value = 32.5
+    category = "Obesity class I"
+    suggestions = generate_suggestions(bmi_value, category)
+    print("Health Facts:")
+    for fact in suggestions["health_facts"]:
+        print(fact)
+    print("\nExercise Plan:")
+    for exercise in suggestions["exercise_plan"]:
+        print(f"- {exercise}")
+    print("\nDiet Suggestions:")
+    for diet_tip in suggestions["diet"]:
+        print(f"- {diet_tip}")
+    if suggestions["warnings"]:
+        print("\nWarnings:")
+        for warning in suggestions["warnings"]:
+            print(f"⚠️ {warning}")

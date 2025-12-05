@@ -1,0 +1,392 @@
+[
+    {
+        "name": "ASDF",
+        "age": 21,
+        "sex": "male",
+        "weight": 76.0,
+        "height": 65.0,
+        "bmi": 27.88,
+        "category": "Overweight",
+        "bmr": 1691.88,
+        "saved_at": "2025-11-19 17:16:08.784618"
+    },
+    {
+        "name": "a",
+        "age": 22,
+        "sex": "male",
+        "weight": 45.0,
+        "height": 45.0,
+        "bmi": 34.44,
+        "category": "Obesity class I",
+        "bmr": 1059.38,
+        "saved_at": "2025-11-19 17:24:09.339377"
+    },
+    {
+        "name": "qweer",
+        "age": 23,
+        "sex": "female",
+        "weight": 56.0,
+        "height": 1.3,
+        "bmi": 33.14,
+        "category": "Obesity class I",
+        "bmr": 1096.5,
+        "saved_at": "2025-11-19 17:30:29.987016"
+    },
+    {
+        "name": "ghj",
+        "age": 25,
+        "sex": "male",
+        "weight": 200.0,
+        "height": 70.0,
+        "bmi": 28.7,
+        "category": "Overweight",
+        "bmr": 1898.43,
+        "saved_at": "2025-11-19 17:43:55.229099"
+    },
+    {
+        "name": "thanos",
+        "age": 40,
+        "sex": "male",
+        "weight": 180.0,
+        "height": 180.0,
+        "bmi": 25.2,
+        "category": "Overweight",
+        "bmr": 1746.47,
+        "saved_at": "2025-11-19 18:08:14.965930"
+    },
+    {
+        "name": "A",
+        "age": 19,
+        "sex": "Male",
+        "weight": 42.0,
+        "height": [
+            6.0,
+            1.0
+        ],
+        "bmi": 12.22,
+        "category": "Underweight",
+        "bmr": 1488.88,
+        "saved_at": "2025-11-19 19:13:45.853916"
+    },
+    {
+        "name": "fggh",
+        "age": 18,
+        "weight": 34.0,
+        "height": 50.0,
+        "bmi": 21.08,
+        "category": "Normal weight",
+        "sex": "male",
+        "bmr": 1048.75,
+        "healthy_weight_range": [
+            29.84,
+            40.32
+        ],
+        "recommended_water_intake": 1.12,
+        "kg_to_gain": 0,
+        "kg_to_lose": 0,
+        "saved_at": "2025-11-19 19:34:15.455294"
+    },
+    {
+        "name": "Asdfqwerty",
+        "age": 18,
+        "sex": "male",
+        "weight": 42.0,
+        "height": 73.0,
+        "bmi": 12.22,
+        "category": "Underweight",
+        "bmr": 1493.88,
+        "saved_at": "2025-11-20 13:02:55.032667"
+    },
+    {
+        "name": "ak",
+        "age": 18,
+        "sex": "male",
+        "weight": 45.0,
+        "height": 74.0,
+        "bmi": 12.74,
+        "category": "Underweight",
+        "bmr": 1539.75,
+        "saved_at": "2025-11-20 13:11:19.159978"
+    },
+    {
+        "name": "ak",
+        "age": 18,
+        "sex": "male",
+        "weight": 77.0,
+        "height": 68.0,
+        "bmi": 25.81,
+        "category": "Overweight",
+        "bmr": 1764.5,
+        "saved_at": "2025-11-20 13:12:37.170450"
+    },
+    {
+        "name": "qwertyuj",
+        "age": 18,
+        "sex": "male",
+        "weight": 42.0,
+        "height": 73.0,
+        "bmi": 12.22,
+        "category": "Underweight",
+        "bmr": 1493.88,
+        "saved_at": "2025-11-23 11:37:44.364453"
+    },
+    {
+        "name": "AMart",
+        "age": 19,
+        "sex": "male",
+        "weight": 84.0,
+        "height": [
+            5,
+            10.0
+        ],
+        "bmi": 26.57,
+        "category": "Overweight",
+        "bmr": 1861.25,
+        "saved_at": "2025-11-25 10:51:54.335370"
+    },
+    {
+        "name": "asdw",
+        "age": 18,
+        "weight": 48.0,
+        "height": [
+            6,
+            0.0
+        ],
+        "bmi": 14.35,
+        "category": "Underweight",
+        "sex": "male",
+        "bmr": 1538.0,
+        "healthy_weight_range": [
+            61.87,
+            83.61
+        ],
+        "recommended_water_intake": 1.58,
+        "kg_to_gain": 13.87,
+        "kg_to_lose": 0,
+        "saved_at": "2025-11-27 18:23:12.918093"
+    },
+    {
+        "name": "trial",
+        "age": 20,
+        "weight": 56.0,
+        "height": 1.5,
+        "bmi": 24.89,
+        "category": "Normal weight",
+        "sex": "female",
+        "bmr": 1236.5,
+        "healthy_weight_range": [
+            41.62,
+            56.25
+        ],
+        "recommended_water_intake": 1.85,
+        "kg_to_gain": 0,
+        "kg_to_lose": 0,
+        "saved_at": "2025-11-27 18:57:23.010704"
+    },
+    {
+        "name": "jhg",
+        "age": 25,
+        "sex": "male",
+        "weight": 65.0,
+        "height": [
+            5,
+            9.0
+        ],
+        "bmi": 21.16,
+        "category": "Normal weight",
+        "bmr": 1625.38,
+        "saved_at": "2025-11-27 20:12:17.616655"
+    },
+    {
+        "name": "aws",
+        "age": 25,
+        "sex": "male",
+        "weight": 50.0,
+        "height": 1.3,
+        "bmi": 29.59,
+        "category": "Overweight",
+        "bmr": 1192.5,
+        "saved_at": "2025-11-28 08:48:20.811341"
+    },
+    {
+        "name": "sdd",
+        "age": 25,
+        "sex": "male",
+        "weight": 56.0,
+        "height": 1.7,
+        "bmi": 19.38,
+        "category": "Normal weight",
+        "bmr": 1502.5,
+        "saved_at": "2025-11-28 08:49:42.179540"
+    },
+    {
+        "name": "fyghujkl",
+        "age": 18,
+        "sex": "male",
+        "weight": 78.0,
+        "height": [
+            5,
+            9.0
+        ],
+        "bmi": 25.39,
+        "category": "Overweight",
+        "bmr": 1790.38,
+        "saved_at": "2025-12-02 10:38:53.961511"
+    },
+    {
+        "name": "ghjmk,",
+        "age": 25,
+        "sex": "male",
+        "weight": 678.0,
+        "height": 1.5,
+        "bmi": 136.68,
+        "category": "Obesity class III",
+        "bmr": 3892.86,
+        "saved_at": "2025-12-02 10:42:22.973552"
+    },
+    {
+        "name": "TEST1",
+        "age": 25,
+        "sex": "male",
+        "weight": 83.0,
+        "height": [
+            6,
+            0.0
+        ],
+        "bmi": 24.82,
+        "category": "Normal weight",
+        "bmr": 1853.0,
+        "saved_at": "2025-12-02 13:31:13.766873"
+    },
+    {
+        "name": "TEST1",
+        "age": 32,
+        "sex": "female",
+        "weight": 150.0,
+        "height": [
+            6,
+            0.0
+        ],
+        "bmi": 20.34,
+        "category": "Normal weight",
+        "bmr": 1502.39,
+        "saved_at": "2025-12-02 13:32:27.783494"
+    },
+    {
+        "name": "TEST2",
+        "age": 32,
+        "sex": "female",
+        "weight": 110.0,
+        "height": [
+            6,
+            0.0
+        ],
+        "bmi": 14.92,
+        "category": "Underweight",
+        "bmr": 1320.95,
+        "saved_at": "2025-12-02 13:33:08.471622"
+    },
+    {
+        "name": "TEST2",
+        "age": 32,
+        "sex": "female",
+        "weight": 110.0,
+        "height": 183.0,
+        "bmi": 14.9,
+        "category": "Underweight",
+        "bmr": 1321.7,
+        "saved_at": "2025-12-02 13:33:36.596208"
+    },
+    {
+        "name": "tyujhj",
+        "age": 20,
+        "sex": "male",
+        "weight": 156.0,
+        "height": 1.76,
+        "bmi": 22.84,
+        "category": "Normal weight",
+        "bmr": 1712.6,
+        "saved_at": "2025-12-02 13:34:41.011297"
+    },
+    {
+        "name": "tyujhj",
+        "age": 18,
+        "sex": "male",
+        "weight": 43.0,
+        "height": [
+            6,
+            2.0
+        ],
+        "bmi": 12.17,
+        "category": "Underweight",
+        "bmr": 1519.75,
+        "saved_at": "2025-12-02 13:35:06.350832"
+    },
+    {
+        "name": "Thanos",
+        "age": 70,
+        "sex": "male",
+        "weight": 300.0,
+        "height": [
+            7,
+            0.0
+        ],
+        "bmi": 29.89,
+        "category": "Overweight",
+        "bmr": 2349.28,
+        "saved_at": "2025-12-02 13:46:33.607212"
+    },
+    {
+        "name": "Waris",
+        "age": 17,
+        "sex": "male",
+        "weight": 46.0,
+        "height": [
+            5,
+            8.0
+        ],
+        "bmi": 15.42,
+        "category": "Underweight",
+        "bmr": 1459.5,
+        "saved_at": "2025-12-04 21:03:55.261328"
+    },
+    {
+        "name": "WARIS",
+        "age": 17,
+        "sex": "male",
+        "weight": 56.0,
+        "height": [
+            5,
+            8.0
+        ],
+        "bmi": 18.77,
+        "category": "Normal weight",
+        "bmr": 1559.5,
+        "saved_at": "2025-12-04 21:27:47.034424"
+    },
+    {
+        "name": "Virat Kohli",
+        "age": 37,
+        "sex": "male",
+        "weight": 70.0,
+        "height": [
+            5,
+            9.0
+        ],
+        "bmi": 22.79,
+        "category": "Normal weight",
+        "bmr": 1615.38,
+        "saved_at": "2025-12-05 17:51:07.918811"
+    },
+    {
+        "name": "qw",
+        "age": 22,
+        "sex": "male",
+        "weight": 67.0,
+        "height": 1.76,
+        "bmi": 21.63,
+        "category": "Normal weight",
+        "bmr": 1665.0,
+        "saved_at": "2025-12-05 18:17:14.697988"
+    }
+]

@@ -147,22 +147,6 @@ def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="
 
 
 
-# Example usage
-if __name__ == "__main__":
-    bmi = 27.3
-    cat = "Overweight"
-    age = 24
-    gender = "male"
-
-    try:
-        suggestions = generate_bmi_suggestions(bmi, cat, age=age, gender=gender)
-        print("Parsed suggestions (dict):")
-        print(json.dumps(suggestions, indent=2))
-    except Exception as err:
-        print("Error:", err)
-
-
-
 FAQ_SYSTEM_INSTRUCTION = """ 
 You are the FAQ module for the Mini Project “BMI Health Analyzer”.(Although not limited to BMI, you can answer general health/diet/fitness questions within the specified topics below.)
 
@@ -229,10 +213,21 @@ def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
     )
     return response.text.strip()
 
-#FAQ Example usage
+
+# Example usage:
 if __name__ == "__main__":
-    question = "What are the limitations of BMI as a health metric?"
+    # Example: Generate BMI suggestions
+    bmi_value = 28.5
+    category = "Overweight"
+    suggestions = generate_bmi_suggestions(bmi_value, category, age=30, gender="male")
+    print("BMI Suggestions:")
+    print(suggestions)
+    # Example: Generate FAQ answer
+    question = input("Enter your health-related question: ")
     answer = generate_bmi_faq_answer(question)
     print("FAQ Answer:")
     print(answer)
-
+    # Example: Generate Health Fact of the Day
+    fact = generate_health_fact_of_the_day()
+    print("Health Fact of the Day:")
+    print(fact)

@@ -1,5 +1,10 @@
 # BMI Health Analyzer 🏋️‍♂️
 
+# 📌 Project Context
+
+This project/program was developed as part of the "Python for Computational Problem Solving" course in the 1st semester of B.Tech (Computer Science and Engineering) at PES University, RR Campus.
+It was completed as a group assignment under the Jackfruit Assignment.
+
 A comprehensive BMI (Body Mass Index) calculator and health analysis tool with both CLI and GUI interfaces, featuring AI-powered health suggestions and an interactive FAQ chatbot.
 
 ## 📋 Table of Contents
@@ -65,6 +70,7 @@ mini_bmi_project/
 ├── user_profiles.json         # Saved user data (auto-generated)
 ├── assets/                    # Images and static assets
 │   └── background.png         # GUI background image (optional)
+├── screenshots/                # Application screenshots
 ├── src/
 │   ├── .env                   # Environment variables (API keys)
 │   ├── main.py                # Main entry point
@@ -293,7 +299,18 @@ python tests/test_bmi_core.py
 ---
 
 ## 📸 Screenshots
-
+![Program menu asking the user to choose between CLI, GUI, or Exit. Option 2 is selected.](screenshots/1.png)
+![BMI Health Analyzer running in CLI mode, showing a menu, user inputs for BMI calculation, and the resulting BMI details displayed in text..](screenshots/2.png)
+![GUI BMI Calculator (Normal Case)](screenshots/3.png)
+![GUI BMI Calculator (Underweight Case)](screenshots/4.png)
+![AI-Powered Suggestions](screenshots/5.png)
+![AI FAQ Chat Interface](screenshots/6.png)
+![BMI History Table](screenshots/7.png)
+![BMI Graph Menu](screenshots/8.png)
+![BMI World Comparison Graph](screenshots/9.png)
+![Weight vs Healthy Range Graph](screenshots/10.png)
+![BMI Position on Scale Graph](screenshots/11.png)
+![Global BMI distribution chart](screenshots/12.png)
 
 ---
 
@@ -325,10 +342,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Author
+## 👤 Project Team
 
 **Arham Ahmed Khan**
 - GitHub: [@aak1767](https://github.com/aak1767)
+- SRN: PES1UG25CS090
+
+**Aadhya**
+- SRN: PES1UG25CS004
+
+**Anshuman H Singh**
+- SRN: PES1UG25AM047
+
+**Chetan N Goudar**
+- SRN: PES1UG25CS139
 
 ---
 

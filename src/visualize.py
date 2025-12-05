@@ -42,9 +42,7 @@ def plot_bmi_comparison(user_bmi: float):
     plt.tight_layout()
     plt.show()
 
-# Example usage:
-# if __name__ == "__main__":
-#     plot_bmi_comparison(22.4)
+
 
 def plot_bmi_distribution():
     """
@@ -58,8 +56,7 @@ def plot_bmi_distribution():
     plt.title("Approx Global BMI Category Distribution")
     plt.show()
 
-# if __name__ == "__main__":
-#     plot_bmi_distribution()
+
 
 def plot_weight_vs_ideal(user_weight_kg: float, height_m: float):
     """
@@ -86,9 +83,6 @@ def plot_weight_vs_ideal(user_weight_kg: float, height_m: float):
 
     plt.show()
 
-    # Example usage:
-# if __name__ == "__main__":
-#     plot_weight_vs_ideal(70, 1.75)
 
 
 def plot_bmi_range(user_bmi: float):
@@ -117,5 +111,24 @@ def plot_bmi_range(user_bmi: float):
     plt.show()
 
 # Example usage:
-# if __name__ == "__main__":
-#     plot_bmi_range(27.3)
+if __name__ == "__main__":
+    sample_weight = float(input("Enter your weight in kg for visualization: "))
+    sample_height = float(input("Enter your height in meters for visualization: "))
+    sample_bmi = sample_weight / (sample_height ** 2)
+    choices = {
+        '1': plot_bmi_comparison,
+        '2': plot_bmi_distribution,
+        '3': plot_weight_vs_ideal,
+        '4': plot_bmi_range
+    }
+    print("Choose a visualization to display:")
+    print("1. BMI Comparison with World Averages")
+    print("2. Global BMI Category Distribution")
+    print("3. Your Weight vs Healthy Weight Range")
+    print("4. Your BMI Compared to Healthy Range")
+    choice = input("Enter choice (1-4): ").strip()
+    if choice in choices:
+        if choice in ['1', '3', '4']:
+            choices[choice](sample_bmi if choice == '1' or choice == '4' else sample_weight, sample_height)
+        else:
+            choices[choice]()
