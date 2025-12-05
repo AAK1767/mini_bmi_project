@@ -3,13 +3,13 @@
 ## 📌 Project Context
 
 This project/program was developed as part of the "Python for Computational Problem Solving" course in the 1st semester of B.Tech (Computer Science and Engineering) at PES University, RR Campus.
-It was completed as a group assignment under the Jackfruit Assignment.
+It was completed as part of the Jackfruit group assignment.
 
 A comprehensive BMI (Body Mass Index) calculator and health analysis tool with both CLI and GUI interfaces, featuring AI-powered health suggestions and an interactive FAQ chatbot.
 
 ## 📋 Table of Contents
 
-- [Features](#✨-features)
+- [Features](#features)
 - [Project Structure](#📁-project-structure)
 - [Installation](#🚀-installation)
 - [Configuration](#⚙️-configuration)
