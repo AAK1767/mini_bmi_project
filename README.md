@@ -1,6 +1,6 @@
 # BMI Health Analyzer 🏋️‍♂️
 
-# 📌 Project Context
+## 📌 Project Context
 
 This project/program was developed as part of the "Python for Computational Problem Solving" course in the 1st semester of B.Tech (Computer Science and Engineering) at PES University, RR Campus.
 It was completed as a group assignment under the Jackfruit Assignment.
@@ -299,18 +299,42 @@ python tests/test_bmi_core.py
 ---
 
 ## 📸 Screenshots
-![Program menu asking the user to choose between CLI, GUI, or Exit. Option 2 is selected.](screenshots/1.png)
-![BMI Health Analyzer running in CLI mode, showing a menu, user inputs for BMI calculation, and the resulting BMI details displayed in text..](screenshots/2.png)
-![GUI BMI Calculator (Normal Case)](screenshots/3.png)
-![GUI BMI Calculator (Underweight Case)](screenshots/4.png)
-![AI-Powered Suggestions](screenshots/5.png)
-![AI FAQ Chat Interface](screenshots/6.png)
-![BMI History Table](screenshots/7.png)
-![BMI Graph Menu](screenshots/8.png)
-![BMI World Comparison Graph](screenshots/9.png)
-![Weight vs Healthy Range Graph](screenshots/10.png)
-![BMI Position on Scale Graph](screenshots/11.png)
-![Global BMI distribution chart](screenshots/12.png)
+
+**Main menu – choose CLI or GUI**  
+<img src="screenshots/1.png" alt="Main menu" width="500">
+
+**CLI mode – BMI calculation**  
+<img src="screenshots/2.png" alt="CLI BMI mode" width="500">
+
+**GUI – normal BMI case**  
+<img src="screenshots/3.png" alt="GUI normal case" width="500">
+
+**GUI – underweight BMI case**  
+<img src="screenshots/4.png" alt="GUI underweight case" width="500">
+
+**AI-powered suggestions**  
+<img src="screenshots/5.png" alt="AI suggestions" width="500">
+
+**AI FAQ chat**  
+<img src="screenshots/6.png" alt="AI FAQ chat" width="500">
+
+**BMI history table**  
+<img src="screenshots/7.png" alt="BMI history table" width="500">
+
+**Graph selection menu**  
+<img src="screenshots/8.png" alt="Graph menu" width="500">
+
+**World BMI comparison graph**  
+<img src="screenshots/9.png" alt="World comparison graph" width="500">
+
+**Weight vs healthy range graph**  
+<img src="screenshots/10.png" alt="Weight vs healthy range graph" width="500">
+
+**BMI position on scale**  
+<img src="screenshots/11.png" alt="BMI scale position" width="500">
+
+**Global BMI distribution chart**  
+<img src="screenshots/12.png" alt="BMI distribution chart" width="500">
 
 ---
 
