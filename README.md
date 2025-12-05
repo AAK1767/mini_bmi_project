@@ -10,22 +10,22 @@ A comprehensive BMI (Body Mass Index) calculator and health analysis tool with b
 ## 📋 Table of Contents
 
 - [Features](#features)
-- [Project Structure](#📁-project-structure)
-- [Installation](#🚀-installation)
-- [Configuration](#⚙️-configuration)
-- [Usage](#📖-usage)
-- [Modules Overview](#🧩-modules-overview)
-- [API Integration](#🤖-api-integration)
-- [Running Tests](#🧪-running-tests)
-- [Screenshots](#📸-screenshots)
-- [Development](#🛠️-development)
-- [Disclaimer](#⚠️-disclaimer)
-- [License](#📄-license)
-- [Project Team](#👤-project-team)
-- [Acknowledgments](#🙏-acknowledgments)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Modules Overview](#modules-overview)
+- [API Integration](#api-integration)
+- [Running Tests](#running-tests)
+- [Screenshots](#screenshots)
+- [Development](#development)
+- [Disclaimer](#disclaimer)
+- [License](#license)
+- [Project Team](#project-team)
+- [Acknowledgments](#acknowledgments)
 ---
 
-## Features ✨
+## Features
 
 ### Core Functionality
 - **BMI Calculation** - Calculate BMI with support for multiple unit systems:
@@ -61,7 +61,7 @@ A comprehensive BMI (Body Mass Index) calculator and health analysis tool with b
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 mini_bmi_project/
@@ -89,7 +89,7 @@ mini_bmi_project/
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - Python 3.9 or higher
@@ -130,7 +130,7 @@ mini_bmi_project/
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### API Key Setup
 
@@ -149,7 +149,7 @@ To enable AI features, you need a Google Gemini API key:
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### Running the Application
 
@@ -206,7 +206,7 @@ print(f"BMI: {bmi}, Category: {category}")
 
 ---
 
-## 🧩 Modules Overview
+## Modules Overview
 
 ### [`bmi_core.py`](src/bmi_core.py)
 Core calculation engine containing:
@@ -257,7 +257,7 @@ Command-line interface with:
 
 ---
 
-## 🤖 API Integration
+## API Integration
 
 ### Google Gemini AI
 
@@ -285,7 +285,7 @@ If AI is unavailable (no API key, network error, etc.):
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 cd tests
@@ -299,7 +299,7 @@ python tests/test_bmi_core.py
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 **Main menu – choose CLI or GUI**  
 <img src="screenshots/1.png" alt="Main menu" width="500">
@@ -339,7 +339,7 @@ python tests/test_bmi_core.py
 
 ---
 
-## 🛠️ Development
+## Development
 
 ### Adding New Features
 
@@ -355,19 +355,13 @@ python tests/test_bmi_core.py
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This application is for **educational and informational purposes only**. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for health-related decisions.
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👤 Project Team
+## Project Team
 
 **Arham Ahmed Khan**
 - GitHub: [@aak1767](https://github.com/aak1767)
@@ -384,7 +378,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+
+
+## Acknowledgments
 
 - World Health Organization (WHO) for BMI classification standards
 - Google for Gemini AI API
