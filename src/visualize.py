@@ -126,9 +126,16 @@ if __name__ == "__main__":
     print("2. Global BMI Category Distribution")
     print("3. Your Weight vs Healthy Weight Range")
     print("4. Your BMI Compared to Healthy Range")
-    choice = input("Enter choice (1-4): ").strip()
-    if choice in choices:
-        if choice in ['1', '3', '4']:
-            choices[choice](sample_bmi if choice == '1' or choice == '4' else sample_weight, sample_height)
-        else:
-            choices[choice]()
+    print("5. Exit")
+    choice = ''
+    while choice != '5':
+        choice = input("Enter choice (1-5): ").strip()
+        if choice in choices:
+            if choice == '1':
+                choices[choice](sample_bmi)
+            elif choice == '2':
+                choices[choice]()
+            elif choice == '3':
+                choices[choice](sample_weight, sample_height)
+            elif choice == '4':
+                choices[choice](sample_bmi)

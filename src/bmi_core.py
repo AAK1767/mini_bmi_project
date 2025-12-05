@@ -2,6 +2,7 @@ from data_utils import save_profile
 VALID_WEIGHT_UNITS = {'kg', 'lb'}
 VALID_HEIGHT_UNITS = {'m', 'cm', 'in', 'ft_in'}
 
+
 def log_execution(func):
     """Decorator that prints messages before and after function execution."""
     def wrapper(*args, **kwargs):
@@ -12,6 +13,7 @@ def log_execution(func):
         print(f"[LOG] Result: {result}")
         return result
     return wrapper
+
 
 def input_values():
     """
@@ -84,8 +86,6 @@ def input_values():
         print("Invalid input. Please enter numeric values.")
         return None
 
-    
-
 
 def lb_to_kg(pounds):
     """
@@ -93,7 +93,6 @@ def lb_to_kg(pounds):
     """
     kg = pounds * 0.45359237
     return kg
-
 
 
 def inches_to_meters(inches):
@@ -104,7 +103,6 @@ def inches_to_meters(inches):
     return meters
 
 
-
 def feet_inches_to_meters(feet, inches):
     """
     Convert feet and inches to meters.
@@ -112,7 +110,6 @@ def feet_inches_to_meters(feet, inches):
     total_inches = (feet * 12) + inches
     meters = total_inches * 0.0254
     return meters
-
 
 
 def cms_to_meters(cms):
@@ -137,8 +134,7 @@ def calculate_bmi(weight_kg: float, height_m: float) -> float:
     return weight_kg / (height_m ** 2)
 
 
-
-def healthy_weight_range_for_height(height_m: float, lower_bmi: float = 18.5, upper_bmi: float = 25.0):
+def healthy_weight_range_for_height(height_m: float, lower_bmi: float = 18.5, upper_bmi: float = 24.9):
     """
     Return (min_weight_kg, max_weight_kg) for healthy BMI range.
     """
@@ -147,7 +143,6 @@ def healthy_weight_range_for_height(height_m: float, lower_bmi: float = 18.5, up
     min_w = lower_bmi * (height_m ** 2)
     max_w = upper_bmi * (height_m ** 2)
     return round(min_w, 2), round(max_w, 2)
-
 
 
 def calculate_bmr_mifflin(weight_kg: float, height_cm: float, age: int, sex: str) -> float:
@@ -164,7 +159,6 @@ def calculate_bmr_mifflin(weight_kg: float, height_cm: float, age: int, sex: str
     return round(bmr, 2)
 
 
-
 def recommended_water_liters_per_day(weight_kg: float) -> float:
     """
     Simple formula: liters/day = weight_kg * 0.033
@@ -172,7 +166,6 @@ def recommended_water_liters_per_day(weight_kg: float) -> float:
     if weight_kg <= 0:
         raise ValueError("Weight must be positive.")
     return round(weight_kg * 0.033, 2)
-
 
 
 def kg_diff_to_reach_healthy(weight_kg: float, min_w: float, max_w: float):
@@ -183,7 +176,6 @@ def kg_diff_to_reach_healthy(weight_kg: float, min_w: float, max_w: float):
     gain = round(max(0, min_w - weight_kg), 2)
     lose = round(max(0, weight_kg - max_w), 2)
     return gain, lose
-
 
 
 def bmi_category(bmi: float) -> tuple[str, str]:
@@ -207,7 +199,6 @@ def bmi_category(bmi: float) -> tuple[str, str]:
     # fallback (shouldn't happen)
     return "Unknown", "No description available."
 
-    
 
 def bmi_report(weight, height, age, sex, weight_unit='kg', height_unit='m'):
     # Validate units using sets
@@ -254,7 +245,6 @@ def bmi_report(weight, height, age, sex, weight_unit='kg', height_unit='m'):
     return bmi_value_rounded, category, description, bmr_value, healthy_weight_values, water_intake, kg_to_gain, kg_to_lose
 
 
-
 def main():
     """Main function to run the BMI calculator."""
     print("=== BMI Calculator ===\n")
@@ -285,22 +275,16 @@ def main():
         profile = {
         "name": name,
         "age": age,
+        "sex": sex,
         "weight": weight,
         "height": height,
         "bmi": bmi,
         "category": category,
-        "sex": sex,
         "bmr": bmr_value,
-        "healthy_weight_range": healthy_weight_values,
-        "recommended_water_intake": water_intake,
-        "kg_to_gain": kg_to_gain,
-        "kg_to_lose": kg_to_lose
         }
         save_profile(profile)   
     else:
         print(f"\nError: {bmi_result}")
-
-
 
 
 if __name__ == "__main__":

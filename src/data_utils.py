@@ -4,12 +4,14 @@ from datetime import datetime
 
 PROFILE_FILE = "user_profiles.json"
 
+
 def load_profiles():
     """Load all saved user profiles."""
     if not os.path.exists(PROFILE_FILE):
         return []
     with open(PROFILE_FILE, "r") as f:
         return json.load(f)
+
 
 def save_profile(profile):
     """
@@ -22,7 +24,3 @@ def save_profile(profile):
 
     with open(PROFILE_FILE, "w") as f:
         json.dump(profiles, f, indent=4)
-
-def get_profiles():
-    """Return all profiles (same as load_profiles for convenience)."""
-    return load_profiles()

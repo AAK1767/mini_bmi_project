@@ -71,43 +71,43 @@ class TestCalculateBMI:
 
 class TestBMICategory:
     def test_underweight(self):
-        category = bmi_category(17.5)
+        category, description = bmi_category(17.5)
         assert "underweight" in category.lower()
 
     def test_normal_weight(self):
-        category = bmi_category(22.0)
+        category, description = bmi_category(22.0)
         assert "normal" in category.lower()
 
     def test_overweight(self):
-        category = bmi_category(27.0)
+        category, description = bmi_category(27.0)
         assert "overweight" in category.lower()
 
     def test_obesity_class_1(self):
-        category = bmi_category(32.0)
+        category, description = bmi_category(32.0)
         assert "obesity" in category.lower() or "obese" in category.lower()
 
     def test_obesity_class_2(self):
-        category = bmi_category(37.0)
+        category, description = bmi_category(37.0)
         assert "obesity" in category.lower() or "obese" in category.lower()
 
     def test_obesity_class_3(self):
-        category = bmi_category(42.0)
+        category, description = bmi_category(42.0)
         assert "obesity" in category.lower() or "obese" in category.lower()
 
     def test_boundary_underweight_normal(self):
         # 18.5 is the boundary
-        assert "normal" in bmi_category(18.5).lower()
-        assert "underweight" in bmi_category(18.4).lower()
+        assert "normal" in bmi_category(18.5)[0].lower()
+        assert "underweight" in bmi_category(18.4)[0].lower()
 
     def test_boundary_normal_overweight(self):
         # 25 is the boundary
-        assert "overweight" in bmi_category(25.0).lower()
-        assert "normal" in bmi_category(24.9).lower()
+        assert "overweight" in bmi_category(25.0)[0].lower()
+        assert "normal" in bmi_category(24.9)[0].lower()
 
     def test_boundary_overweight_obese(self):
         # 30 is the boundary
-        assert "obesity" in bmi_category(30.0).lower() or "obese" in bmi_category(30.0).lower()
-        assert "overweight" in bmi_category(29.9).lower()
+        assert "obesity" in bmi_category(30.0)[0].lower() or "obese" in bmi_category(30.0)[0].lower()
+        assert "overweight" in bmi_category(29.9)[0].lower()
 
 
 # ==================== BMR Calculation Tests ====================
@@ -119,9 +119,9 @@ class TestCalculateBMR:
         assert bmr == pytest.approx(1673.75, rel=0.01)
 
     def test_bmr_female(self):
-        # Mifflin-St Jeor for female: (10 * 60) + (6.25 * 165) - (5 * 25) - 161 = 1370.25
+        # Mifflin-St Jeor for female: (10 * 60) + (6.25 * 165) - (5 * 25) - 161 = 1345.25
         bmr = calculate_bmr_mifflin(60, 165, 25, 'female')
-        assert bmr == pytest.approx(1370.25, rel=0.01)
+        assert bmr == pytest.approx(1345.25, rel=0.01)
 
     def test_bmr_increases_with_weight(self):
         bmr_light = calculate_bmr_mifflin(60, 175, 25, 'male')
@@ -234,19 +234,19 @@ class TestBMIReport:
 
 class TestEdgeCases:
     def test_very_low_bmi(self):
-        category = bmi_category(10.0)
+        category, description = bmi_category(10.0)
         assert "underweight" in category.lower()
 
     def test_very_high_bmi(self):
-        category = bmi_category(50.0)
+        category, description = bmi_category(50.0)
         assert "obesity" in category.lower() or "obese" in category.lower()
 
     def test_exact_boundary_values(self):
         # Test exact WHO boundaries
-        assert "underweight" in bmi_category(18.49).lower()
-        assert "normal" in bmi_category(18.50).lower()
-        assert "normal" in bmi_category(24.99).lower()
-        assert "overweight" in bmi_category(25.00).lower()
+        assert "underweight" in bmi_category(18.49)[0].lower()
+        assert "normal" in bmi_category(18.50)[0].lower()
+        assert "normal" in bmi_category(24.99)[0].lower()
+        assert "overweight" in bmi_category(25.00)[0].lower()
 
 
 if __name__ == "__main__":

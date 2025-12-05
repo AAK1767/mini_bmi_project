@@ -1,5 +1,4 @@
 import sys
-import json
 
 # Import functions from your existing modules
 from bmi_core import input_values, bmi_report, save_profile, cms_to_meters, inches_to_meters, feet_inches_to_meters, lb_to_kg
@@ -14,6 +13,7 @@ from chatbot_ai import generate_bmi_suggestions, generate_bmi_faq_answer, genera
 def print_separator():
     print("\n" + "-" * 50 + "\n")
 
+
 def view_history():
     """Displays saved user profiles in a simple table."""
     profiles = load_profiles()
@@ -27,6 +27,7 @@ def view_history():
         date_str = p.get('saved_at', 'N/A')[:19] 
         print(f"{p.get('name', 'User'):<15} {date_str:<20} {p['bmi']:<10} {p['category']}")
     print("-" * 60)
+
 
 def display_static_suggestions(bmi, category):
     """Helper function to print static suggestions (used for standard choice AND fallback)."""
@@ -48,6 +49,7 @@ def display_static_suggestions(bmi, category):
         print(f"\n*** WARNINGS ***")
         for w in data['warnings']:
             print(f"[!] {w}")
+
 
 def handle_suggestions(bmi, category, age, sex):
     """Handles the sub-menu for AI vs Static suggestions with Fallback."""
@@ -100,6 +102,7 @@ def handle_suggestions(bmi, category, age, sex):
     else:
         print("[!] Invalid choice.")
 
+
 def handle_faq_chat():
     """Interactive loop for AI FAQ."""
     print_separator()
@@ -126,6 +129,7 @@ def handle_faq_chat():
             print(f"\n>> AI Answer:\n{answer}")
         except Exception as e:
             print(f"\n[!] Error fetching answer: {e}")
+
 
 def main():
     print("\n==========================================")
@@ -275,6 +279,7 @@ def main():
             
             else:
                 print("Invalid option.")
+
 
 if __name__ == "__main__":
     try:

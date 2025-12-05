@@ -17,6 +17,7 @@ if not API_KEY:
 # 4. Initialize client
 client = genai.Client(api_key=API_KEY)
 
+
 SYSTEM_INSTRUCTION = """
 **1. Purpose & Role**
 You are an AI module responsible for generating accurate, concise, and practical suggestions for the Mini Project "BMI Health Analyzer."
@@ -93,7 +94,6 @@ Aim for reliability and clarity.
 """
 
 
-
 def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="gemini-2.5-flash"):
     # Build the input payload that the model will read
     payload = {
@@ -108,7 +108,7 @@ def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="
 
     # call the model
     response = client.models.generate_content(
-        model="models/gemini-2.5-flash-lite",
+        model=f"models/{model}",
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_INSTRUCTION,
             # optionally set determinism/temperature if supported:
@@ -144,7 +144,6 @@ def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="
         raise ValueError(f"Model returned JSON but missing required keys. Got keys: {list(result.keys())}")
 
     return result
-
 
 
 FAQ_SYSTEM_INSTRUCTION = """ 
@@ -189,7 +188,6 @@ Rules:
 """
 
 
-
 def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
     response = client.models.generate_content(
         model=model,
@@ -201,9 +199,8 @@ def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
     return response.text.strip()
 
 
-
 def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
-    prompt = "Provide a concise and interesting and useful health fact related to Diet, Health, fitness, weight management, or general wellness, use a bit of humuour(not too much, just a bit of pun/joke/troll)."
+    prompt = "Provide a concise and interesting and useful health fact related to Diet, Health, fitness, weight management, or general wellness, use a bit of humour(not too much, just a bit of pun/joke/troll)."
     response = client.models.generate_content(
         model=model,
         config=types.GenerateContentConfig(
