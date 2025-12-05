@@ -1,3 +1,8 @@
+'''
+This module provides visualization functions for BMI-related data.
+'''
+
+
 import matplotlib.pyplot as plt
 
 def plot_bmi_comparison(user_bmi: float):

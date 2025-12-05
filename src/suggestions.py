@@ -1,3 +1,9 @@
+'''
+This module provides health and fitness suggestions based on BMI categories.
+And this runs only when AI services are not available or the user prefers static suggestions.
+'''
+
+
 import random
 
 def health_facts_of_the_day():
