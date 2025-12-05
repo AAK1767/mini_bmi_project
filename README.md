@@ -9,7 +9,7 @@ A comprehensive BMI (Body Mass Index) calculator and health analysis tool with b
 
 ## 📋 Table of Contents
 
-- [Features](#features-✨)
+- [Features](#features)
 - [Project Structure](#📁-project-structure)
 - [Installation](#🚀-installation)
 - [Configuration](#⚙️-configuration)
