@@ -20,8 +20,8 @@ A comprehensive BMI (Body Mass Index) calculator and health analysis tool with b
 - [Screenshots](#screenshots)
 - [Development](#development)
 - [Disclaimer](#disclaimer)
-- [License](#license)
 - [Project Team](#project-team)
+- [License](#license)
 - [Acknowledgments](#acknowledgments)
 ---
 
