@@ -94,7 +94,7 @@ Aim for reliability and clarity.
 """
 
 
-def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="gemini-2.5-flash"):
+def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="gemini-2.5-flash-lite"):
     # Build the input payload that the model will read
     payload = {
         "bmi_value": bmi_value,
