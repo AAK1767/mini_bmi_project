@@ -8,7 +8,7 @@ from visualize import plot_bmi_comparison, plot_weight_vs_ideal, plot_bmi_range,
 # Import suggestions
 from suggestions import generate_suggestions as get_static_suggestions, health_facts_of_the_day as get_static_fact
 # Import AI functions
-from chatbot_ai import generate_bmi_suggestions, generate_bmi_faq_answer, generate_health_fact_of_the_day
+from chatbot_ai import generate_bmi_suggestions, generate_bmi_faq_answer, generate_health_fact_of_the_day, is_ai_available
 
 def print_separator():
     print("\n" + "-" * 50 + "\n")
@@ -107,6 +107,14 @@ def handle_faq_chat():
     """Interactive loop for AI FAQ."""
     print_separator()
     print("=== AI HEALTH FAQ ===")
+
+    # Check if AI is available
+    if not is_ai_available():
+        print("\n⚠️ WARNING: API Key not found or invalid.")
+        print("Please set GEMINI_API_KEY in your src/.env file to use AI features.")
+        print("\nAI FAQ is currently unavailable.")
+        print_separator()
+        return
     print("Ask questions like:")
     print("- What is the difference between BMI and BMR?")
     print("- Is BMI accurate for athletes?")

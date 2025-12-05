@@ -10,12 +10,18 @@ load_dotenv()
 # 2. Get the key from the environment
 API_KEY = os.getenv("GEMINI_API_KEY")
 
-# 3. check if key exists (Optional safety)
-if not API_KEY:
-    raise ValueError("API Key not found. Please set GEMINI_API_KEY in your .env file.")
+# 3. Initialize client only if key exists
+client = None
+if API_KEY:
+    try:
+        client = genai.Client(api_key=API_KEY)
+    except Exception:
+        client = None
 
-# 4. Initialize client
-client = genai.Client(api_key=API_KEY)
+
+def is_ai_available():
+    """Check if AI features are available."""
+    return client is not None and API_KEY is not None
 
 
 SYSTEM_INSTRUCTION = """
@@ -95,6 +101,8 @@ Aim for reliability and clarity.
 
 
 def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="gemini-2.5-flash-lite"):
+    if not is_ai_available():
+        return {"error": "API Key not found. Please set GEMINI_API_KEY in your .env file."}    
     # Build the input payload that the model will read
     payload = {
         "bmi_value": bmi_value,
@@ -106,44 +114,47 @@ def generate_bmi_suggestions(bmi_value, category, age=None, gender=None, model="
     # convert to compact JSON string for contents
     contents_str = json.dumps(payload)
 
-    # call the model
-    response = client.models.generate_content(
-        model=f"models/{model}",
-        config=types.GenerateContentConfig(
-            system_instruction=SYSTEM_INSTRUCTION,
-            # optionally set determinism/temperature if supported:
-            # temperature=0.0
-        ),
-        contents=contents_str
-    )
-
-    text = response.text.strip()
-
-    # The model is required to return strict JSON per system instruction.
-    # Try to parse it; if it fails, raise helpful error.
     try:
-        result = json.loads(text)
-    except json.JSONDecodeError:
-        # Try to salvage if model wrapped JSON in backticks or code block
-        # strip common wrappers
-        cleaned = text
-        # remove triple backticks and language markers
-        if cleaned.startswith("```") and cleaned.endswith("```"):
-            cleaned = "\n".join(cleaned.splitlines()[1:-1])
-        cleaned = cleaned.strip("` \n")
+        # call the model
+        response = client.models.generate_content(
+            model=f"models/{model}",
+            config=types.GenerateContentConfig(
+                system_instruction=SYSTEM_INSTRUCTION,
+            ),
+            contents=contents_str
+        )
+
+        text = response.text.strip()
+
+        # The model is required to return strict JSON per system instruction.
+        # Try to parse it; if it fails, raise helpful error.
         try:
-            result = json.loads(cleaned)
-        except Exception as e:
-            return {"error": f"AI processing failed: {str(e)}"}
+            result = json.loads(text)
+        except json.JSONDecodeError:
+            # Try to salvage if model wrapped JSON in backticks or code block
+            cleaned = text
+            if cleaned.startswith("```") and cleaned.endswith("```"):
+                cleaned = "\n".join(cleaned.splitlines()[1:-1])
+            cleaned = cleaned.strip("` \n")
+            try:
+                result = json.loads(cleaned)
+            except Exception as e:
+                return {"error": f"AI processing failed: {str(e)}"}
 
-    # Basic validation of required structure
-    if "error" in result:
-        return result  # propagate error message from model
-    expected_keys = {"summary", "recommendations", "caution"}
-    if not expected_keys.issubset(result.keys()):
-        raise ValueError(f"Model returned JSON but missing required keys. Got keys: {list(result.keys())}")
+        # Basic validation of required structure
+        if "error" in result:
+            return result
+        expected_keys = {"summary", "recommendations", "caution"}
+        if not expected_keys.issubset(result.keys()):
+            return {"error": "AI returned incomplete response."}
 
-    return result
+        return result
+    
+    except Exception as e:
+        error_str = str(e)
+        if "API_KEY_INVALID" in error_str or "API key not valid" in error_str:
+            return {"error": "Invalid API Key. Please check your GEMINI_API_KEY in the .env file."}
+        return {"error": "AI request failed. Please try again later."}
 
 
 FAQ_SYSTEM_INSTRUCTION = """ 
@@ -189,17 +200,28 @@ Rules:
 
 
 def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
-    response = client.models.generate_content(
-        model=model,
-        config=types.GenerateContentConfig(
-            system_instruction=FAQ_SYSTEM_INSTRUCTION,
-        ),
-        contents=question
-    )
-    return response.text.strip()
+    if not is_ai_available():
+        raise ValueError("API Key not found. Please set GEMINI_API_KEY in your .env file.")
+    
+    try:
+        response = client.models.generate_content(
+            model=model,
+            config=types.GenerateContentConfig(
+                system_instruction=FAQ_SYSTEM_INSTRUCTION,
+            ),
+            contents=question
+        )
+        return response.text.strip()
+    except Exception as e:
+        error_str = str(e)
+        if "API_KEY_INVALID" in error_str or "API key not valid" in error_str:
+            raise ValueError("Invalid API Key. Please check your GEMINI_API_KEY in the .env file.")
+        raise ValueError(f"AI request failed. Please try again later.")
 
 
 def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
+    if not is_ai_available():
+        raise ValueError("API Key not found. Please set GEMINI_API_KEY in your .env file.")
     prompt = "Provide a concise and interesting and useful health fact related to Diet, Health, fitness, weight management, or general wellness, use a bit of humour(not too much, just a bit of pun/joke/troll)."
     response = client.models.generate_content(
         model=model,

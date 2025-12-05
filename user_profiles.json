@@ -388,5 +388,60 @@
         "category": "Normal weight",
         "bmr": 1665.0,
         "saved_at": "2025-12-05 18:17:14.697988"
+    },
+    {
+        "name": "fsad",
+        "age": 25,
+        "sex": "male",
+        "weight": 90.0,
+        "height": 1.8,
+        "bmi": 27.78,
+        "category": "Overweight",
+        "bmr": 1905.0,
+        "saved_at": "2025-12-05 21:12:33.169111"
+    },
+    {
+        "name": "suggest",
+        "age": 25,
+        "sex": "female",
+        "weight": 65.0,
+        "height": 1.5,
+        "bmi": 28.89,
+        "category": "Overweight",
+        "bmr": 1301.5,
+        "saved_at": "2025-12-05 21:27:38.165200"
+    },
+    {
+        "name": "tyty",
+        "age": 25,
+        "sex": "female",
+        "weight": 78.0,
+        "height": 1.9,
+        "bmi": 21.61,
+        "category": "Normal weight",
+        "bmr": 1681.5,
+        "saved_at": "2025-12-05 21:35:46.469110"
+    },
+    {
+        "name": "111www",
+        "age": 29,
+        "sex": "female",
+        "weight": 222.0,
+        "height": 2.0,
+        "bmi": 25.17,
+        "category": "Overweight",
+        "bmr": 1950.98,
+        "saved_at": "2025-12-05 21:38:57.286611"
+    },
+    {
+        "name": "asd",
+        "age": 18,
+        "sex": "male",
+        "weight": 12.0,
+        "height": 1.0,
+        "bmi": 12.0,
+        "category": "Underweight",
+        "bmr": 660.0,
+        "saved_at": "2025-12-05 21:39:54.955688"
     }
 ]

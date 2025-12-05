@@ -18,7 +18,8 @@ from suggestions import (
 from chatbot_ai import (
     generate_bmi_suggestions, 
     generate_bmi_faq_answer, 
-    generate_health_fact_of_the_day
+    generate_health_fact_of_the_day,
+    is_ai_available
 )
 
 
@@ -570,6 +571,17 @@ class FAQTab(wx.Panel):
         main_sizer.Add(disclaimer, 0, wx.ALL, 5)
         
         self.SetSizer(main_sizer)
+
+        # Check if AI is available and show warning
+        if not is_ai_available():
+            self.chat_history.SetValue(
+                "⚠️ WARNING: API Key not found or invalid.\n"
+                "Please set GEMINI_API_KEY in your src/.env file to use AI features.\n\n"
+                "AI FAQ is currently unavailable.\n" +
+                "-" * 50
+            )
+            self.ask_btn.Disable()
+            self.question_input.Disable()
     
     def on_ask(self, event):
         """Handle FAQ question."""
