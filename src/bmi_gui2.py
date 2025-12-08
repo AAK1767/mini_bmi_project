@@ -1,6 +1,4 @@
 import wx
-import wx.adv
-import sys
 import os
 import threading
 

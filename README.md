@@ -83,8 +83,6 @@ mini_bmi_project/
 │   ├── visualize.py           # Matplotlib visualizations
 │   ├── data_utils.py          # Data persistence utilities
 │   └── __pycache__/           # Python cache (ignored)
-└── tests/
-    └── test_bmi_core.py       # Unit tests for core module
 ```
 
 ---
@@ -126,7 +124,6 @@ mini_bmi_project/
 | matplotlib | ≥ 3.7.0 | Data visualization |
 | python-dotenv | ≥ 1.0.0 | Environment variable management |
 | google-genai | ≥ 1.0.0 | Google Gemini AI integration |
-| pytest | ≥ 9.0.0 | For testing the code |
 
 ---
 
@@ -285,19 +282,7 @@ If AI is unavailable (no API key, network error, etc.):
 
 ---
 
-## Running Tests
 
-```bash
-cd tests
-python -m pytest test_bmi_core.py -v
-```
-
-Or run directly:
-```bash
-python tests/test_bmi_core.py
-```
-
----
 
 ## Screenshots
 

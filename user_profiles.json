@@ -443,5 +443,19 @@
         "category": "Underweight",
         "bmr": 660.0,
         "saved_at": "2025-12-05 21:39:54.955688"
+    },
+    {
+        "name": "Asdf123",
+        "age": 25,
+        "sex": "male",
+        "weight": 72.0,
+        "height": [
+            5,
+            10.0
+        ],
+        "bmi": 22.78,
+        "category": "Normal weight",
+        "bmr": 1711.25,
+        "saved_at": "2025-12-08 08:52:28.872264"
     }
 ]
