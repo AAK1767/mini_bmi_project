@@ -16,7 +16,6 @@ A comprehensive BMI (Body Mass Index) calculator and health analysis tool with b
 - [Usage](#usage)
 - [Modules Overview](#modules-overview)
 - [API Integration](#api-integration)
-- [Running Tests](#running-tests)
 - [Screenshots](#screenshots)
 - [Development](#development)
 - [Disclaimer](#disclaimer)
