@@ -21,70 +21,6 @@ from chatbot_ai import (
 )
 
 
-class BackgroundPanel(wx.Panel):
-    """Panel with a background image."""
-    
-    def __init__(self, parent, image_path=None):
-        super().__init__(parent)
-        self.background_image = None
-        self.scaled_image = None
-        
-        # Try to load background image
-        if image_path and os.path.exists(image_path):
-            try:
-                self.background_image = wx.Image(image_path, wx.BITMAP_TYPE_ANY)
-            except Exception:
-                pass
-        
-        # Set background style for transparency support
-        self.SetBackgroundStyle(wx.BG_STYLE_PAINT)
-        
-        # Bind paint and resize events
-        self.Bind(wx.EVT_PAINT, self.on_paint)
-        self.Bind(wx.EVT_SIZE, self.on_size)
-        self.Bind(wx.EVT_ERASE_BACKGROUND, self.on_erase)
-    
-    def on_erase(self, event):
-        """Prevent flickering."""
-        pass
-    
-    def on_size(self, event):
-        """Handle resize - rescale image."""
-        self.scaled_image = None  # Reset scaled image
-        self.Refresh()
-        event.Skip()
-    
-    def on_paint(self, event):
-        """Draw background image."""
-        dc = wx.PaintDC(self)
-        size = self.GetSize()
-        
-        if self.background_image:
-            # Scale image to fit panel
-            if self.scaled_image is None or self.scaled_image.GetSize() != size:
-                img = self.background_image.Scale(size.width, size.height, wx.IMAGE_QUALITY_HIGH)
-                self.scaled_image = wx.Bitmap(img)
-            
-            dc.DrawBitmap(self.scaled_image, 0, 0)
-        else:
-            # Default gradient background if no image
-            dc.GradientFillLinear(
-                wx.Rect(0, 0, size.width, size.height),
-                wx.Colour(230, 240, 250),  # Light blue
-                wx.Colour(200, 220, 240),  # Slightly darker blue
-                wx.SOUTH
-            )
-
-
-class TransparentPanel(wx.Panel):
-    """A panel with transparent background to show parent's background."""
-    
-    def __init__(self, parent, main_frame=None):
-        super().__init__(parent)
-        self.main_frame = main_frame
-        self.SetBackgroundColour(wx.Colour(255, 255, 255, 220))  # Semi-transparent white
-
-
 class BMICalculatorApp(wx.Frame):
     """Main application window for BMI Health Analyzer."""
     
@@ -95,21 +31,8 @@ class BMICalculatorApp(wx.Frame):
         self.current_result = None
         self.current_input = None
         
-        # Get background image path from assets folder
-        src_dir = os.path.dirname(os.path.abspath(__file__))
-        project_dir = os.path.dirname(src_dir)
-        assets_dir = os.path.join(project_dir, "assets")
-        
-        # Try common image names - adjust filename as needed
-        background_path = None
-        for img_name in ["background.png", "background.jpg", "bg.png", "bg.jpg", "wallpaper.png", "wallpaper.jpg"]:
-            potential_path = os.path.join(assets_dir, img_name)
-            if os.path.exists(potential_path):
-                background_path = potential_path
-                break
-        
-        # Create main panel with background
-        self.panel = BackgroundPanel(self, background_path)
+        # Create main panel with simple background color
+        self.panel = wx.Panel(self)
         self.panel.SetBackgroundColour(wx.Colour(230, 240, 250))
         
         # Create notebook for tabs

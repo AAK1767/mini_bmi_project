@@ -68,8 +68,6 @@ mini_bmi_project/
 ├── README.md                  # Project documentation
 ├── requirements.txt           # Python dependencies
 ├── user_profiles.json         # Saved user data (auto-generated)
-├── assets/                    # Images and static assets
-│   └── background.png         # GUI background image (optional)
 ├── screenshots/                # Application screenshots
 ├── src/
 │   ├── .env                   # Environment variables (API keys)
@@ -352,12 +350,15 @@ This application is for **educational and informational purposes only**. It is n
 - SRN: PES1UG25CS090
 
 **Aadhya**
+- GitHub: [@aadhya205](https://github.com/aadhya205)
 - SRN: PES1UG25CS004
 
 **Anshuman H Singh**
+- GitHub: [@anshuman5singh](https://github.com/Anshuman5singh)
 - SRN: PES1UG25AM047
 
 **Chetan N Goudar**
+- GitHub: [@goudarchetan123-gif](https://github.com/goudarchetan123-gif)
 - SRN: PES1UG25CS139
 
 ---
