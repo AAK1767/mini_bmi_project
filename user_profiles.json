@@ -468,5 +468,19 @@
         "category": "Obesity class I",
         "bmr": 1812.5,
         "saved_at": "2025-12-11 12:03:37.624147"
+    },
+    {
+        "name": "LOKI",
+        "age": 40,
+        "sex": "male",
+        "weight": 80.0,
+        "height": [
+            6,
+            3.0
+        ],
+        "bmi": 22.04,
+        "category": "Normal weight",
+        "bmr": 1795.62,
+        "saved_at": "2025-12-11 21:17:18.792378"
     }
 ]
