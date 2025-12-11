@@ -4,22 +4,34 @@ This module provides visualization functions for BMI-related data.
 
 
 import matplotlib.pyplot as plt
+import csv
+import os
 
 def plot_bmi_comparison(user_bmi: float):
     """
     Plot a simple bar graph comparing the user's BMI with
     approximate global/region average BMI values.
-    Values used are static reference estimates (not real-time data).
+    Values loaded from CSV file.
     """
-
-    # Sample reference values (approximate global averages)
-    labels = ["You", "World Avg", "Asia Avg", "Europe Avg"]
-    bmi_values = [
-        user_bmi,
-        24.5,   # Global average BMI (approx WHO estimate)
-        23.0,   # Asia-Pacific typical average
-        26.5    # Europe typical average
-    ]
+    
+    # Load regional averages from CSV
+    labels = ["You"]
+    bmi_values = [user_bmi]
+    
+    # __file__ = path of this script (visualize.py)
+    # os.path.dirname(__file__) = gets the folder containing this script (src/)
+    # os.path.join(..., 'bmi_averages.csv') = creates full path to CSV regardless of working directory
+    csv_path = os.path.join(os.path.dirname(__file__), 'bmi_averages.csv')
+    try:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                labels.append(row['region'])
+                bmi_values.append(float(row['average_bmi']))
+    except FileNotFoundError:
+        # Fallback to hardcoded values
+        labels.extend(["World Avg", "Asia Avg", "Europe Avg"])
+        bmi_values.extend([24.5, 23.0, 26.5])
 
     # Create bar chart
     plt.figure(figsize=(7, 5))

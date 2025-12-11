@@ -457,5 +457,16 @@
         "category": "Normal weight",
         "bmr": 1711.25,
         "saved_at": "2025-12-08 08:52:28.872264"
+    },
+    {
+        "name": "ag",
+        "age": 25,
+        "sex": "male",
+        "weight": 87.0,
+        "height": 1.7,
+        "bmi": 30.1,
+        "category": "Obesity class I",
+        "bmr": 1812.5,
+        "saved_at": "2025-12-11 12:03:37.624147"
     }
 ]
