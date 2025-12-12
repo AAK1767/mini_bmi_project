@@ -1,5 +1,4 @@
 import wx
-import os
 import threading
 
 # Import functions from existing modules

@@ -482,5 +482,16 @@
         "category": "Normal weight",
         "bmr": 1795.62,
         "saved_at": "2025-12-11 21:17:18.792378"
+    },
+    {
+        "name": "jk",
+        "age": 25,
+        "sex": "male",
+        "weight": 90.0,
+        "height": 1.8,
+        "bmi": 12.6,
+        "category": "Underweight",
+        "bmr": 1413.23,
+        "saved_at": "2025-12-12 22:12:44.326609"
     }
 ]
