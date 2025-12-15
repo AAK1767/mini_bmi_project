@@ -316,9 +316,17 @@ def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
         return {"ai_available": True, "answer": response.text.strip()}
     except Exception as e:
         error_str = str(e)
+        # On any API error (invalid key, network, etc.), fall back to premade FAQs
         if "API_KEY_INVALID" in error_str or "API key not valid" in error_str:
-            raise ValueError("Invalid API Key. Please check your GEMINI_API_KEY in the .env file.")
-        raise ValueError("AI request failed. Please try again later.")
+            error_msg = "Invalid API Key. Please check your GEMINI_API_KEY in the .env file."
+        else:
+            error_msg = f"AI request failed: {error_str}"
+        
+        return {
+            "ai_available": False,
+            "message": f"⚠️ {error_msg}\n\nFalling back to premade FAQ questions:",
+            "faq_list": get_premade_faq_list()
+        }
 
 
 def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
@@ -348,7 +356,7 @@ if __name__ == "__main__":
     print(suggestions)
     
     # Example: FAQ with fallback
-    result = generate_bmi_faq_answer("test question")
+    result = generate_bmi_faq_answer(input("Enter your FAQ question: "))
     if isinstance(result, dict) and not result.get("ai_available", True):
         print("\n" + result["message"])
         for idx, q in result["faq_list"]:
