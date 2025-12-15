@@ -16,7 +16,9 @@ from chatbot_ai import (
     generate_bmi_suggestions, 
     generate_bmi_faq_answer, 
     generate_health_fact_of_the_day,
-    is_ai_available
+    is_ai_available,
+    get_premade_faq_list,
+    get_premade_faq_answer
 )
 
 
@@ -452,7 +454,7 @@ class FAQTab(wx.Panel):
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         
         # Title
-        title = wx.StaticText(self, label="AI Health FAQ")
+        title = wx.StaticText(self, label="Health FAQ")
         title.SetFont(wx.Font(16, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
         main_sizer.Add(title, 0, wx.ALL | wx.ALIGN_CENTER, 10)
         
@@ -469,7 +471,7 @@ class FAQTab(wx.Panel):
         self.chat_history = wx.TextCtrl(
             self,
             style=wx.TE_MULTILINE | wx.TE_READONLY,
-            size=(-1, 350)
+            size=(-1, 300)
         )
         self.chat_history.SetFont(wx.Font(10, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
         main_sizer.Add(self.chat_history, 1, wx.EXPAND | wx.ALL, 10)
@@ -483,7 +485,20 @@ class FAQTab(wx.Panel):
         
         input_sizer.Add(self.question_input, 1, wx.EXPAND | wx.RIGHT, 5)
         input_sizer.Add(self.ask_btn, 0)
-        main_sizer.Add(input_sizer, 0, wx.EXPAND | wx.ALL, 10)
+        main_sizer.Add(input_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT, 10)
+        
+        # Premade FAQ section
+        faq_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        faq_label = wx.StaticText(self, label="Or select a premade question:")
+        self.faq_choice = wx.Choice(self, choices=["-- Select --"] + [q for _, q in get_premade_faq_list()])
+        self.faq_choice.SetSelection(0)
+        self.faq_btn = wx.Button(self, label="Get Answer")
+        self.faq_btn.Bind(wx.EVT_BUTTON, self.on_premade_faq)
+        
+        faq_sizer.Add(faq_label, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 5)
+        faq_sizer.Add(self.faq_choice, 1, wx.EXPAND | wx.RIGHT, 5)
+        faq_sizer.Add(self.faq_btn, 0)
+        main_sizer.Add(faq_sizer, 0, wx.EXPAND | wx.ALL, 10)
         
         # Disclaimer
         disclaimer = wx.StaticText(self, label="Note: AI responses are for informational purposes only and may contain errors.")
@@ -491,17 +506,19 @@ class FAQTab(wx.Panel):
         main_sizer.Add(disclaimer, 0, wx.ALL, 5)
         
         self.SetSizer(main_sizer)
-
-        # Check if AI is available and show warning
+        
+        # Show initial message if AI unavailable
         if not is_ai_available():
-            self.chat_history.SetValue(
-                "⚠️ WARNING: API Key not found or invalid.\n"
-                "Please set GEMINI_API_KEY in your src/.env file to use AI features.\n\n"
-                "AI FAQ is currently unavailable.\n" +
-                "-" * 50
-            )
-            self.ask_btn.Disable()
-            self.question_input.Disable()
+            self.show_ai_unavailable_message()
+    
+    def show_ai_unavailable_message(self):
+        """Show message when AI is unavailable."""
+        msg = "⚠️ AI features are unavailable.\n"
+        msg += "Your API key may be missing, invalid, or not set.\n"
+        msg += "To enable AI-powered answers, add a valid GEMINI_API_KEY to your src/.env file.\n\n"
+        msg += "You can still use the premade questions below!\n"
+        msg += "-" * 50 + "\n"
+        self.chat_history.SetValue(msg)
     
     def on_ask(self, event):
         """Handle FAQ question."""
@@ -516,16 +533,42 @@ class FAQTab(wx.Panel):
         
         def fetch_answer():
             try:
-                answer = generate_bmi_faq_answer(question)
+                result = generate_bmi_faq_answer(question)
+                if isinstance(result, dict):
+                    if result.get("ai_available"):
+                        answer = result.get("answer", "No answer received.")
+                    else:
+                        # AI unavailable - show message with premade FAQ hint
+                        answer = "⚠️ AI is unavailable. Please use the premade questions dropdown below, or check your API key."
+                else:
+                    answer = str(result)
                 wx.CallAfter(self.chat_history.AppendText, f"\nAI: {answer}\n")
                 wx.CallAfter(self.chat_history.AppendText, "-" * 50 + "\n")
             except Exception as e:
-                wx.CallAfter(self.chat_history.AppendText, f"\n[Error]: {e}\n")
+                wx.CallAfter(self.chat_history.AppendText, f"\n⚠️ AI Error: {e}\nPlease use the premade questions dropdown below.\n")
+                wx.CallAfter(self.chat_history.AppendText, "-" * 50 + "\n")
             
             wx.CallAfter(self.ask_btn.Enable)
         
         thread = threading.Thread(target=fetch_answer, daemon=True)
         thread.start()
+    
+    def on_premade_faq(self, event):
+        """Handle premade FAQ selection."""
+        selection = self.faq_choice.GetSelection()
+        if selection <= 0:  # "-- Select --" or nothing
+            wx.MessageBox("Please select a question from the dropdown.", "No Selection", wx.OK | wx.ICON_WARNING)
+            return
+        
+        # Get the answer (selection - 1 because of "-- Select --" at index 0)
+        answer = get_premade_faq_answer(selection)
+        
+        if answer:
+            self.chat_history.AppendText(f"\n{answer}\n")
+            self.chat_history.AppendText("\n(Pre-written answer)\n")
+            self.chat_history.AppendText("-" * 50 + "\n")
+        else:
+            self.chat_history.AppendText("\nCould not retrieve answer.\n")
 
 
 class HistoryTab(wx.Panel):

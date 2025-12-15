@@ -493,5 +493,27 @@
         "category": "Underweight",
         "bmr": 1413.23,
         "saved_at": "2025-12-12 22:12:44.326609"
+    },
+    {
+        "name": "w",
+        "age": 25,
+        "sex": "male",
+        "weight": 12.0,
+        "height": 12.0,
+        "bmi": 0.08,
+        "category": "Underweight",
+        "bmr": 7500.0,
+        "saved_at": "2025-12-13 16:20:23.365466"
+    },
+    {
+        "name": "12",
+        "age": 25,
+        "sex": "male",
+        "weight": 65.0,
+        "height": 1.8,
+        "bmi": 20.06,
+        "category": "Normal weight",
+        "bmr": 1655.0,
+        "saved_at": "2025-12-15 18:06:32.612950"
     }
 ]

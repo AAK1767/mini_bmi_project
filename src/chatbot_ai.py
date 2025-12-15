@@ -24,6 +24,103 @@ def is_ai_available():
     return client is not None and API_KEY is not None
 
 
+PREMADE_FAQS = [
+    {
+        "question": "What is BMI?",
+        "answer": "BMI (Body Mass Index) is a simple calculation using your height and weight to estimate body fat. The formula is: BMI = weight (kg) / height (m)². It's a quick screening tool to categorize weight status."
+    },
+    {
+        "question": "How is BMI calculated?",
+        "answer": "BMI is calculated by dividing your weight in kilograms by your height in meters squared. Formula: BMI = weight (kg) ÷ height² (m²). For example, a person weighing 70kg and 1.75m tall has a BMI of 70 ÷ (1.75²) = 22.9."
+    },
+    {
+        "question": "What are the BMI categories?",
+        "answer": "WHO BMI Categories:\n• Underweight: BMI < 18.5\n• Normal weight: BMI 18.5–24.9\n• Overweight: BMI 25–29.9\n• Obese Class I: BMI 30–34.9\n• Obese Class II: BMI 35–39.9\n• Obese Class III: BMI ≥ 40"
+    },
+    {
+        "question": "What is a normal/healthy BMI?",
+        "answer": "A normal BMI is between 18.5 and 24.9 according to WHO standards. This range is associated with the lowest health risks for most adults."
+    },
+    {
+        "question": "What does underweight mean?",
+        "answer": "Underweight is defined as having a BMI below 18.5. It may indicate nutritional deficiency or other health issues. If underweight, consider consulting a healthcare provider."
+    },
+    {
+        "question": "What does overweight mean?",
+        "answer": "Overweight is defined as having a BMI between 25 and 29.9. It indicates excess body weight that may increase health risks. Regular exercise and balanced nutrition can help."
+    },
+    {
+        "question": "What does obese mean?",
+        "answer": "Obesity is defined as having a BMI of 30 or higher. It's associated with increased risk of various health conditions including heart disease, diabetes, and joint problems."
+    },
+    {
+        "question": "What are the limitations of BMI?",
+        "answer": "BMI limitations include:\n• Doesn't distinguish between muscle and fat\n• Doesn't account for age, gender, or ethnicity\n• May misclassify athletes or muscular individuals\n• Doesn't measure body fat distribution\n• Not accurate for pregnant women, elderly, or children"
+    },
+    {
+        "question": "How can I lose weight healthily?",
+        "answer": "Healthy weight loss tips:\n• Create a moderate caloric deficit (500-750 cal/day)\n• Eat balanced meals with protein, fiber, and vegetables\n• Exercise regularly (150+ min/week moderate activity)\n• Stay hydrated\n• Get adequate sleep (7-9 hours)\n• Be consistent and patient"
+    },
+    {
+        "question": "How can I gain weight healthily?",
+        "answer": "Healthy weight gain tips:\n• Eat calorie-dense nutritious foods\n• Increase protein intake\n• Eat more frequently (5-6 smaller meals)\n• Strength training to build muscle\n• Choose nutrient-rich snacks\n• Stay consistent with meals"
+    },
+    {
+        "question": "What is a healthy diet?",
+        "answer": "A healthy diet includes:\n• Plenty of fruits and vegetables\n• Whole grains\n• Lean proteins (fish, poultry, legumes)\n• Healthy fats (nuts, olive oil, avocado)\n• Limited processed foods and added sugars\n• Adequate hydration"
+    },
+    {
+        "question": "How much water should I drink daily?",
+        "answer": "General recommendation is 8 glasses (about 2 liters) of water daily. However, needs vary based on activity level, climate, and body size. Listen to your body and drink when thirsty."
+    },
+    {
+        "question": "How much exercise do I need?",
+        "answer": "Adults should aim for:\n• At least 150 minutes of moderate aerobic activity per week, OR\n• 75 minutes of vigorous activity per week\n• Strength training 2+ days per week\n• Reduce prolonged sitting time"
+    },
+    {
+        "question": "What exercises are good for beginners?",
+        "answer": "Good beginner exercises:\n• Walking (30 min daily)\n• Swimming\n• Cycling\n• Bodyweight exercises (squats, push-ups)\n• Yoga or stretching\n• Start slow and gradually increase intensity"
+    },
+    {
+        "question": "How much sleep do I need?",
+        "answer": "Adults generally need 7-9 hours of quality sleep per night. Good sleep supports weight management, immune function, and overall health."
+    },
+    {
+        "question": "How do I convert kg to lbs?",
+        "answer": "To convert kg to lbs: multiply by 2.205. Example: 70 kg × 2.205 = 154.3 lbs. To convert lbs to kg: divide by 2.205."
+    },
+    {
+        "question": "How do I convert feet to meters?",
+        "answer": "To convert feet to meters: multiply by 0.3048. Example: 5.5 feet × 0.3048 = 1.68 meters. To convert meters to feet: multiply by 3.281."
+    },
+    {
+        "question": "Is BMI accurate?",
+        "answer": "BMI is a useful screening tool but not perfectly accurate. It doesn't account for muscle mass, bone density, or fat distribution. It works best as a general indicator for populations, not individuals."
+    },
+    {
+        "question": "What factors affect BMI?",
+        "answer": "Factors affecting BMI include:\n• Body composition (muscle vs fat)\n• Age and gender\n• Genetics\n• Diet and nutrition\n• Physical activity level\n• Medical conditions\n• Medications"
+    },
+    {
+        "question": "How often should I check my BMI?",
+        "answer": "Checking BMI once every few months is sufficient for most people. Focus on overall health trends rather than daily fluctuations. Weight can vary day-to-day due to water retention and other factors."
+    },
+]
+
+
+def get_premade_faq_list():
+    """Return list of available FAQ questions with their indices."""
+    return [(i + 1, faq["question"]) for i, faq in enumerate(PREMADE_FAQS)]
+
+
+def get_premade_faq_answer(index):
+    """Get answer for a specific FAQ by index (1-based)."""
+    if 1 <= index <= len(PREMADE_FAQS):
+        faq = PREMADE_FAQS[index - 1]
+        return f"Q: {faq['question']}\n\nA: {faq['answer']}"
+    return None
+
+
 SYSTEM_INSTRUCTION = """
 **1. Purpose & Role**
 You are an AI module responsible for generating accurate, concise, and practical suggestions for the Mini Project "BMI Health Analyzer."
@@ -201,7 +298,12 @@ Rules:
 
 def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
     if not is_ai_available():
-        raise ValueError("API Key not found. Please set GEMINI_API_KEY in your .env file.")
+        # Return info about premade FAQs
+        return {
+            "ai_available": False,
+            "message": "AI features are unavailable. Your API key may be missing, invalid, or not set.\nTo enable AI-powered answers, please add a valid GEMINI_API_KEY to your .env file.\n\nFor now, please choose from the available questions below:",
+            "faq_list": get_premade_faq_list()
+        }
     
     try:
         response = client.models.generate_content(
@@ -211,12 +313,12 @@ def generate_bmi_faq_answer(question, model="models/gemini-2.5-flash-lite"):
             ),
             contents=question
         )
-        return response.text.strip()
+        return {"ai_available": True, "answer": response.text.strip()}
     except Exception as e:
         error_str = str(e)
         if "API_KEY_INVALID" in error_str or "API key not valid" in error_str:
             raise ValueError("Invalid API Key. Please check your GEMINI_API_KEY in the .env file.")
-        raise ValueError(f"AI request failed. Please try again later.")
+        raise ValueError("AI request failed. Please try again later.")
 
 
 def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
@@ -233,6 +335,9 @@ def generate_health_fact_of_the_day(model="models/gemini-2.5-flash-lite"):
     return response.text.strip()
 
 
+
+
+
 # Example usage:
 if __name__ == "__main__":
     # Example: Generate BMI suggestions
@@ -241,12 +346,24 @@ if __name__ == "__main__":
     suggestions = generate_bmi_suggestions(bmi_value, category, age=30, gender="male")
     print("BMI Suggestions:")
     print(suggestions)
-    # Example: Generate FAQ answer
-    question = input("Enter your health-related question: ")
-    answer = generate_bmi_faq_answer(question)
-    print("FAQ Answer:")
-    print(answer)
+    
+    # Example: FAQ with fallback
+    result = generate_bmi_faq_answer("test question")
+    if isinstance(result, dict) and not result.get("ai_available", True):
+        print("\n" + result["message"])
+        for idx, q in result["faq_list"]:
+            print(f"  {idx}. {q}")
+        choice = int(input("\nEnter question number: "))
+        answer = get_premade_faq_answer(choice)
+        if answer:
+            print("\n" + answer)
+    else:
+        print("FAQ Answer:", result.get("answer", result))
+    
     # Example: Generate Health Fact of the Day
-    fact = generate_health_fact_of_the_day()
-    print("Health Fact of the Day:")
-    print(fact)
+    try:
+        fact = generate_health_fact_of_the_day()
+        print("\nHealth Fact of the Day:")
+        print(fact)
+    except ValueError as e:
+        print(f"\n{e}")
