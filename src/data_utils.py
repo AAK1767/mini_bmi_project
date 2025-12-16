@@ -7,7 +7,7 @@ import json
 import os
 from datetime import datetime
 
-PROFILE_FILE = "user_profiles.json"
+PROFILE_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "user_profiles.json")
 
 
 def load_profiles():

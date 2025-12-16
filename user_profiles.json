@@ -515,5 +515,38 @@
         "category": "Normal weight",
         "bmr": 1655.0,
         "saved_at": "2025-12-15 18:06:32.612950"
+    },
+    {
+        "name": "abc",
+        "age": 22,
+        "sex": "female",
+        "weight": 55.0,
+        "height": 168.0,
+        "bmi": 19.49,
+        "category": "Normal weight",
+        "bmr": 1329.0,
+        "saved_at": "2025-12-16 10:34:22.010718"
+    },
+    {
+        "name": "adty",
+        "age": 25,
+        "sex": "male",
+        "weight": 65.0,
+        "height": 70.0,
+        "bmi": 20.56,
+        "category": "Normal weight",
+        "bmr": 1641.25,
+        "saved_at": "2025-12-16 10:47:29.287882"
+    },
+    {
+        "name": "Abhishek",
+        "age": 19,
+        "sex": "male",
+        "weight": 72.0,
+        "height": 177.0,
+        "bmi": 22.98,
+        "category": "Normal weight",
+        "bmr": 1736.25,
+        "saved_at": "2025-12-16 10:57:59.520752"
     }
 ]
